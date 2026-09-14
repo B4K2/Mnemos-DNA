@@ -1,0 +1,42 @@
+# D01: pure KDA, NoPE — the matched recall/throughput control for D06/D07.
+#
+# Matched to configs/d06_kmer_fastweight.yaml on every axis except the mixer: same d_model /
+# depth / heads, same NoPE, same 131,072 training context, same 5B-token budget and LR schedule.
+# d06 -> d01_new is therefore a single-axis swap (k-mer fast-weight memory on/off), which is what
+# licenses attributing the recall difference to the memory rather than to a training difference.
+#
+# Revised 2026-09-10: was context_length 262144 / training_tokens 2B, which crossed both the
+# context and budget axes against d06. The earlier 262144 run is archived at
+# results/_archive/d01_new_ctx262144_step7629/. This arm replaces D04 (HOLA) as the paper's
+# "Pure-KDA" row: D04's per-head cache gates were bf16 scalars and never moved off their -4.0
+# init (lambda = 0.018 for all 32 gates at step 19,073), so its cache was inactive and its
+# throughput figures measured a cache path that contributed nothing.
+
+model_id: d01_new
+run_name: d01-new-kda-nope-2m
+
+attention_type: kda
+pos_type: none
+
+d_model: 128
+num_layers: 8
+num_heads: 4              # head_dim 32
+
+context_length: 131072    # matched to d06/d07
+batch_size: 1
+grad_accum_steps: 1
+gradient_checkpointing: true
+
+training_tokens: 5_000_000_000   # analysed at 4.5B, as d06/d07 are
+
+lr_schedule: cosine
+learning_rate: 1.0e-3     # small model -> higher peak LR than D01's 3e-4
+warmup_steps: 200
+lr_min_ratio: 0.1
+
+eval_interval_steps: 200
+checkpoint_interval_steps: 100   # matched to d06
+
+# Everything else (weight_decay, dataset_dir, precision, ...) comes from base.yaml.
+# Paired arm: configs/d01_rope.yaml is the NTK-RoPE twin — it is NOT matched to this file any
+# more (still 262144 / 2B); re-sync it before using the pair as a positional ablation.

@@ -1,0 +1,36 @@
+# D03: pure KATA (kernelized linear attention, arXiv 2607.17419), NoPE, ~2M params.
+
+model_id: d03
+run_name: d03-kata-nope-2m
+
+attention_type: kata
+
+pos_type: none
+
+# --- The KATA knobs ---------------------------------------------------------------------------
+kata_blocks: 2          
+kata_chunk_size: 512    
+
+
+d_model: 128
+num_layers: 8
+num_heads: 2              
+
+# --- Throughput / optimizer-step budget ---------------------
+context_length: 65536
+batch_size: 1
+grad_accum_steps: 1
+gradient_checkpointing: true
+
+training_tokens: 3_000_000_000
+
+# --- LR schedule (identical to d02_kda_local.yaml) --------------------------------------------
+lr_schedule: cosine
+learning_rate: 5.0e-4
+warmup_steps: 200
+lr_min_ratio: 0.1
+
+eval_interval_steps: 200
+checkpoint_interval_steps: 500
+
+# Everything else (weight_decay, dataset_dir, precision, ...) comes from base.yaml.

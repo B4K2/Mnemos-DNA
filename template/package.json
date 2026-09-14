@@ -1,0 +1,22 @@
+{
+  "name": "dna-model-comparison-viewer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gen-data": "python3 ../scripts/gen_dashboard_data.py",
+    "predev": "npm run gen-data",
+    "prebuild": "npm run gen-data",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.12.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}

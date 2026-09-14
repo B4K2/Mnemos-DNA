@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "model_id": "d01",
+    "run_name": "d01-kda-nope",
+    "checkpoint": null,
+    "checkpoint_step": null,
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "gpu": null,
+    "trained_context_length": 65536,
+    "lengths": [
+      1024
+    ],
+    "benchmarks": [
+      "needle"
+    ],
+    "wall_time_s": 22.8,
+    "total_params": 120607776,
+    "non_embedding_params": 120601632,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 1024,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.5,
+        "stderr": 0.3536,
+        "chance": 0.25,
+        "p_correct": 0.4741,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 2,
+        "mode": "trained"
+      },
+      "note": "",
+      "seconds": 11.298250317573547,
+      "peak_mem_gb": 9.593573376
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 1024,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.5,
+        "stderr": 0.3536,
+        "chance": 0.25,
+        "p_correct": 0.4639,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 2,
+        "mode": "trained"
+      },
+      "note": "",
+      "seconds": 11.298250317573547,
+      "peak_mem_gb": 9.593573376
+    }
+  ]
+}

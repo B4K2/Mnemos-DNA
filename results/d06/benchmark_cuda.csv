@@ -1,0 +1,2 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,decode_peak_gb,decode_s_per_tok_nocache,infer_peak_gb,prefill_s,prefill_tok_per_s,train_peak_gb,train_tok_per_s
+scaling,scaling,8192,ok,train step OOM (inference figures above are still valid),5.82,0.0145,0.155,0.1827,0.158,0.1363,60104,,

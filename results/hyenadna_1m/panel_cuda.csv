@@ -1,0 +1,26 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,acc,acc_hi,acc_lo,acc_mean,auroc,auroc_hi,auroc_lo,auroc_mean,chance,f1,f1_hi,f1_lo,f1_mean,feat_dim,mcc,mcc_hi,mcc_lo,mcc_mean,mean_acc,mean_auroc,n_boot,n_species,n_test,n_tracks_scored,n_train,per_class,probe_C,probe_dev_acc,species
+species,species,8192,ok,,77.32,1.5879,0.9433,0.9667,0.9167,0.9432,,,,,0.2,0.9447,0.968,0.9178,0.9441,8448,0.9299,0.9588,0.8979,0.9296,,,1000,5,,,,200,0.1,0.9714,"fly,human,mouse,worm,zebrafish"
+species,species,16384,ok,,121.91,3.0528,0.99,1.0,0.9767,0.9902,,,,,0.2,0.9902,1.0,0.9776,0.9903,8448,0.9875,1.0,0.9709,0.9877,,,1000,5,,,,200,0.001,0.9857,"fly,human,mouse,worm,zebrafish"
+species,species,32768,ok,,183.33,5.9834,0.9867,0.9967,0.9733,0.9863,,,,,0.2,0.9868,0.997,0.9721,0.9863,8448,0.9834,0.9958,0.9665,0.9829,,,1000,5,,,,200,0.001,1.0,"fly,human,mouse,worm,zebrafish"
+species,species,66560,SKIP: OOM,OutOfMemoryError,0.74,7.1185,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+species,species,134144,SKIP: OOM at shorter ctx,skipped: a shorter context already OOM'd,0.0,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+species,species,268288,SKIP: OOM at shorter ctx,skipped: a shorter context already OOM'd,0.0,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+species,species,536576,SKIP: OOM at shorter ctx,skipped: a shorter context already OOM'd,0.0,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+species,species,1048576,SKIP: OOM at shorter ctx,skipped: a shorter context already OOM'd,0.0,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lrb,vep_eqtl,8192,ok,,48.65,0.8657,0.5859,0.6719,0.5,0.5837,0.6476,0.7405,0.5476,0.6459,,0.5691,0.6772,0.4464,0.5646,16896,0.1764,0.3442,0.0035,0.1717,,,1000,,128,,256,,0.001,0.6154,
+lrb,chromatin,8192,ok,,48.65,0.8657,,,,,,,,,,,,,,,,,,,0.9328,0.4319,,,121,37,255,,,,
+lrb,enhancer,8192,ok,,48.65,0.8657,0.592,0.68,0.504,0.5916,0.6292,0.7336,0.5274,0.6299,,0.6434,0.732,0.5469,0.641,8448,0.173,0.3606,-0.0016,0.173,,,1000,,125,,248,,1.0,0.72,
+lrb,promoter,8192,ok,,48.65,0.8657,0.9339,0.9752,0.8843,0.9331,0.8879,0.968,0.7945,0.8901,,0.3333,0.6667,0.0,0.3153,8448,0.3599,0.66,-0.0317,0.342,,,1000,,121,,246,,0.001,0.98,
+lrb,vep_eqtl,16384,ok,,62.68,1.6087,0.5547,0.6406,0.4766,0.5545,0.5472,0.6402,0.4566,0.5468,,0.4673,0.5738,0.3495,0.4652,16896,0.1293,0.2887,-0.0303,0.1284,,,1000,,128,,256,,0.0001,0.6154,
+lrb,chromatin,16384,ok,,62.68,1.6087,,,,,,,,,,,,,,,,,,,0.9299,0.4802,,,121,37,255,,,,
+lrb,enhancer,16384,ok,,62.68,1.6087,0.584,0.672,0.496,0.5817,0.613,0.7088,0.5112,0.6102,,0.6533,0.7334,0.5564,0.6499,8448,0.1532,0.3349,-0.0283,0.1496,,,1000,,125,,248,,0.001,0.74,
+lrb,promoter,16384,ok,,62.68,1.6087,0.9091,0.9587,0.8512,0.9086,0.8323,0.9359,0.7017,0.834,,0.1538,0.4449,0.0,0.1516,8448,0.1238,0.4574,-0.0647,0.1279,,,1000,,121,,246,,0.001,0.98,
+lrb,vep_eqtl,32768,ok,,99.97,3.0946,0.5234,0.6094,0.4453,0.5239,0.5293,0.6252,0.4371,0.5298,,0.5041,0.612,0.3932,0.5026,16896,0.0506,0.2236,-0.1107,0.0513,,,1000,,128,,256,,0.001,0.6923,
+lrb,chromatin,32768,ok,,99.97,3.0946,,,,,,,,,,,,,,,,,,,0.9252,0.5258,,,121,37,255,,,,
+lrb,enhancer,32768,ok,,99.97,3.0946,0.672,0.752,0.584,0.6697,0.6891,0.7718,0.5909,0.687,,0.7485,0.8132,0.6667,0.7453,8448,0.3627,0.5108,0.1986,0.3591,,,1000,,125,,248,,0.0001,0.68,
+lrb,promoter,32768,ok,,99.97,3.0946,0.9091,0.9587,0.8595,0.9079,0.8254,0.9159,0.725,0.8265,,0.1538,0.4444,0.0,0.1468,8448,0.1238,0.4326,-0.0622,0.1204,,,1000,,121,,246,,0.001,0.96,
+lrb,lrb,66560,SKIP: data unavailable,ctx 66560 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it,0.0,0.1226,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lrb,lrb,134144,SKIP: data unavailable,ctx 134144 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it,0.0,0.1226,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lrb,lrb,268288,SKIP: data unavailable,ctx 268288 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it,0.0,0.1226,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lrb,lrb,536576,SKIP: data unavailable,ctx 536576 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it,0.0,0.1226,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lrb,lrb,1048576,SKIP: data unavailable,ctx 1048576 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it,0.0,0.1226,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

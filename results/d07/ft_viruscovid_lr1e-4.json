@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "model_id": "d07",
+    "run_name": "d07-kda-kmer-fw-local256-nope-2m-curriculum",
+    "checkpoint": "results/d07/step_33900.pt",
+    "checkpoint_step": 33900,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 131072,
+    "lengths": [
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144,
+      524288,
+      1048576
+    ],
+    "benchmarks": [
+      "gue"
+    ],
+    "downstream_mode": "finetune",
+    "lm_eval_tokens": 4000000,
+    "needle_trials": 128,
+    "seed": 0,
+    "offload": false,
+    "wall_time_s": 1579.5,
+    "interrupted": false,
+    "total_params": 2291270,
+    "non_embedding_params": 2290246,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "gue",
+      "task": "GUE/virus_covid",
+      "ctx": 999,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.1735,
+        "mcc": 0.0665,
+        "f1": 0.1699,
+        "auroc": 0.5628,
+        "n_boot": 1000,
+        "acc_mean": 0.174,
+        "acc_lo": 0.157,
+        "acc_hi": 0.191,
+        "mcc_mean": 0.067,
+        "mcc_lo": 0.0483,
+        "mcc_hi": 0.0864,
+        "f1_mean": 0.1701,
+        "f1_lo": 0.1537,
+        "f1_hi": 0.188,
+        "pred_top_share": 0.203,
+        "pred_classes_used": 9,
+        "pred_entropy": 2.1119,
+        "majority_acc": 0.124,
+        "collapsed": false,
+        "ft_dev_acc": 0.2175,
+        "ft_best_epoch": 3,
+        "ft_epochs": 6,
+        "ft_steps": 678,
+        "ft_batch": 32,
+        "ft_micro_batch": 4,
+        "ft_seconds": 1578.1,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 999,
+        "ft_head": "mean+last+8bins+rc",
+        "mode": "finetune"
+      },
+      "note": "",
+      "seconds": 1579.2442607879639,
+      "peak_mem_gb": 7.244662272
+    }
+  ]
+}

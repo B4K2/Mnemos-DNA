@@ -1,0 +1,2 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,acc,acc_hi,acc_lo,acc_mean,auroc,collapsed,f1,f1_hi,f1_lo,f1_mean,ft_batch,ft_best_epoch,ft_dev_acc,ft_epochs,ft_head,ft_micro_batch,ft_seconds,ft_steps,majority_acc,mcc,mcc_hi,mcc_lo,mcc_mean,mode,n_boot,n_test,n_train,pred_classes_used,pred_entropy,pred_top_share,seq_len
+gue,GUE/virus_covid,999,ok,,1579.24,7.2447,0.1735,0.191,0.157,0.174,0.5628,False,0.1699,0.188,0.1537,0.1701,32,3,0.2175,6,mean+last+8bins+rc,4,1578.1,678,0.124,0.0665,0.0864,0.0483,0.067,finetune,1000,2000,4000,9,2.1119,0.203,999

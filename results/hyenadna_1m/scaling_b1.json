@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "model_id": "hyenadna_1m",
+    "run_name": "hyenadna_1m-pretrained-reference",
+    "checkpoint": null,
+    "checkpoint_step": null,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 1048576,
+    "lengths": [
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144,
+      524288,
+      1048576
+    ],
+    "benchmarks": [
+      "scaling"
+    ],
+    "downstream_mode": "probe",
+    "lm_eval_tokens": 4000000,
+    "needle_trials": 128,
+    "seed": 0,
+    "offload": false,
+    "wall_time_s": 0.0,
+    "interrupted": false,
+    "total_params": 6554624,
+    "non_embedding_params": 6550528,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.275,
+        "prefill_tok_per_s": 348371,
+        "prefill_s": 0.0235,
+        "decode_peak_gb": 0.344,
+        "decode_s_per_tok_nocache": 0.0565,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "no training step: this arm is an inference-only wrapper",
+      "seconds": 0.8026831150054932,
+      "peak_mem_gb": 0.343787008
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.425,
+        "prefill_tok_per_s": 311700,
+        "prefill_s": 0.0526,
+        "decode_peak_gb": 0.425,
+        "decode_s_per_tok_nocache": 0.0729,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "no training step: this arm is an inference-only wrapper",
+      "seconds": 0.6212623119354248,
+      "peak_mem_gb": 0.425001472
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.727,
+        "prefill_tok_per_s": 236936,
+        "prefill_s": 0.1383,
+        "decode_peak_gb": 0.996,
+        "decode_s_per_tok_nocache": 0.3396,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "no training step: this arm is an inference-only wrapper",
+      "seconds": 1.3141119480133057,
+      "peak_mem_gb": 0.996125184
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 1.332,
+        "prefill_tok_per_s": 251790,
+        "prefill_s": 0.2603,
+        "decode_peak_gb": 1.87,
+        "decode_s_per_tok_nocache": 0.6143,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "no training step: this arm is an inference-only wrapper",
+      "seconds": 1.431980848312378,
+      "peak_mem_gb": 1.869629952
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 2.541,
+        "prefill_tok_per_s": 188586,
+        "prefill_s": 0.695,
+        "decode_peak_gb": 3.618,
+        "decode_s_per_tok_nocache": 1.2775,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "no training step: this arm is an inference-only wrapper",
+      "seconds": 2.8555541038513184,
+      "peak_mem_gb": 3.61751808
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 262144,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 4.959,
+        "prefill_tok_per_s": 189713,
+        "prefill_s": 1.3818,
+        "decode_peak_gb": 4.962,
+        "decode_s_per_tok_nocache": 1.8421,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "no training step: this arm is an inference-only wrapper",
+      "seconds": 4.927765846252441,
+      "peak_mem_gb": 4.9615232
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 524288,
+      "status": "SKIP: OOM",
+      "metrics": {},
+      "note": "OutOfMemoryError",
+      "seconds": 0.3851916790008545,
+      "peak_mem_gb": 7.111078912
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 1048576,
+      "status": "SKIP: OOM at shorter ctx",
+      "metrics": {},
+      "note": "skipped: a shorter context already OOM'd",
+      "seconds": 0.0,
+      "peak_mem_gb": 0.0
+    }
+  ]
+}

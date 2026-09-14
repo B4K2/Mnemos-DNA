@@ -1,0 +1,249 @@
+{
+  "meta": {
+    "model_id": "d03",
+    "run_name": "d03-kata-ntkrope-2m",
+    "checkpoint": "results/d03/step_1612.pt",
+    "checkpoint_step": 1612,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 65536,
+    "lengths": [
+      8192,
+      16384
+    ],
+    "benchmarks": [
+      "needle"
+    ],
+    "wall_time_s": 187.6,
+    "total_params": 2115712,
+    "non_embedding_params": 2114688,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2969,
+        "stderr": 0.0286,
+        "chance": 0.25,
+        "p_correct": 0.2494,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2812,
+        "stderr": 0.0281,
+        "chance": 0.25,
+        "p_correct": 0.2521,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2422,
+        "stderr": 0.0268,
+        "chance": 0.25,
+        "p_correct": 0.2457,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2695,
+        "stderr": 0.0277,
+        "chance": 0.25,
+        "p_correct": 0.2562,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 16384 does not fit ctx=8192",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=8192",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=8192",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=8192",
+      "seconds": 8.022774994373322,
+      "peak_mem_gb": 0.044960768
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0273,
+        "chance": 0.25,
+        "p_correct": 0.2547,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.25,
+        "stderr": 0.0271,
+        "chance": 0.25,
+        "p_correct": 0.253,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2305,
+        "stderr": 0.0263,
+        "chance": 0.25,
+        "p_correct": 0.2493,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2539,
+        "stderr": 0.0272,
+        "chance": 0.25,
+        "p_correct": 0.2468,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 256
+      },
+      "note": "",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 16384 does not fit ctx=16384",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=16384",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=16384",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=16384",
+      "seconds": 15.385885059833527,
+      "peak_mem_gb": 0.076337152
+    }
+  ]
+}

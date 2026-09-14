@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "model_id": "d06",
+    "run_name": "d06-kda-kmer-fastweight-nope-2m",
+    "checkpoint": null,
+    "checkpoint_step": null,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 131072,
+    "lengths": [
+      8192
+    ],
+    "benchmarks": [
+      "scaling"
+    ],
+    "downstream_mode": "probe",
+    "lm_eval_tokens": 4000000,
+    "needle_trials": 128,
+    "seed": 0,
+    "offload": false,
+    "wall_time_s": 6.1,
+    "interrupted": false,
+    "total_params": 2318544,
+    "non_embedding_params": 2317520,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.158,
+        "prefill_tok_per_s": 60104,
+        "prefill_s": 0.1363,
+        "decode_peak_gb": 0.155,
+        "decode_s_per_tok_nocache": 0.1827,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "train step OOM (inference figures above are still valid)",
+      "seconds": 5.820266962051392,
+      "peak_mem_gb": 0.014498816
+    }
+  ]
+}

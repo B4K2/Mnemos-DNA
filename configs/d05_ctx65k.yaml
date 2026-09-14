@@ -1,0 +1,55 @@
+# D05 @ ctx 65536 — matched-length control for d05c (which cannot fit 131072 on the 5060, see
+# configs/d05c_kmer_setassoc.yaml). Identical to d05_kmer_mem.yaml except context_length.
+# Use THIS as the baseline in the d05 -> d05c comparison, not the 131072 d05 run.
+#
+# D05: KDA + discrete k-mer addressed memory (concept note: discrete_kmer_memory_idea.pdf), NoPE, ~2M backbone.
+#
+# Second memory channel alongside the KDA recurrent state: the current k-mer is a deterministic
+# integer address into a fixed table M of shape [4^k, kmer_mem_dim]; each position reads M[k_t],
+# mixes it into the block output, and writes a gated update back to the same slot. Table size is
+# O(4^k d), independent of context length. All occurrences of one k-mer form a causal chain;
+# distinct k-mers are independent chains (segmented scan). Claim under test (pdf §10): motif-
+# partitioned recurrent state improves long-range recall vs. a single competing global state.
+#
+# Same backbone as d01_new (NoPE KDA) so d01_new -> d05 isolates the k-mer memory alone.
+# d04 (HOLA exact-KV cache) -> d05 compares two recall fixes at matched backbone, both NoPE.
+# Do NOT claim "perfect/infinite recall": it is fixed-capacity, exact content addressing (pdf §12).
+
+model_id: d05
+run_name: d05-kda-kmer-mem-nope-2m-ctx65k
+
+attention_type: kda_kmer_mem
+pos_type: none
+
+# --- k-mer memory knobs --------------------------------------------------------------------------
+kmer_mem_k: 8                 # 4^8 = 65,536 slots. Ablate {6, 8, 10} (pdf §13 Q1); 10 -> 1M slots.
+kmer_mem_dim: 32              # per-slot state vector; k=8 x 32 x bf16 ≈ 4 MiB per table
+kmer_mem_slots_per_kmer: 1    # >1 = multiple context slots per motif (pdf §8 extension)
+kmer_mem_hierarchical_ks: []  # e.g. [4, 6, 8] enables multi-k tables + neural mixer (pdf §9); [] = single k
+kmer_mem_gate_init: -1.0      # write/read-gate bias init. Was -4.0: on the 2026-08-18 fp32 retrain the write gate opened to ~-0.3 by step 4K on its own but the scalar read_gate only reached -3.7 (sigmoid 0.025, pathway effectively off), so start closer to open.
+kmer_mem_update: gated_ema    # gated_ema | delta  (how M[k_t] <- Update(M[k_t], h_t) is realized)
+kmer_mem_layers: all          # all | last | list of layer indices; which blocks read/write memory
+kmer_mem_alphabet: ACGT       # non-ACGT bases (N, PAD) -> no read/write at that position
+kmer_mem_reset_per_sequence: true   # zero table at sequence start (needed for i.i.d. training windows)
+
+d_model: 128
+num_layers: 8
+num_heads: 4              # head_dim 32
+
+context_length: 65536
+batch_size: 1
+grad_accum_steps: 1
+gradient_checkpointing: true
+
+training_tokens: 5_000_000_000
+
+lr_schedule: cosine
+learning_rate: 1.0e-3
+warmup_steps: 200
+lr_min_ratio: 0.1
+
+eval_interval_steps: 200
+checkpoint_interval_steps: 500
+
+# Everything else (weight_decay, dataset_dir, precision, ...) comes from base.yaml.
+# Backbone block is byte-identical to d01_new.yaml — keep them in sync.

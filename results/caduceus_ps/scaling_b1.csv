@@ -1,0 +1,9 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,decode_peak_gb,decode_s_per_tok_nocache,infer_peak_gb,prefill_s,prefill_tok_per_s,train_peak_gb,train_tok_per_s
+scaling,scaling,8192,ok,no training step: this arm is an inference-only wrapper,2.83,0.1433,0.143,0.1959,0.318,0.1093,74976,,
+scaling,scaling,16384,ok,no training step: this arm is an inference-only wrapper,1.27,0.2625,0.263,0.3062,0.262,0.14,117008,,
+scaling,scaling,32768,ok,no training step: this arm is an inference-only wrapper,2.51,0.5051,0.505,0.621,0.502,0.348,94169,,
+scaling,scaling,65536,ok,no training step: this arm is an inference-only wrapper,3.31,0.9778,0.978,1.6276,0.977,0.7748,84580,,
+scaling,scaling,131072,ok,no training step: this arm is an inference-only wrapper,6.54,1.9315,1.931,3.3525,1.93,1.487,88143,,
+scaling,scaling,262144,ok,no training step: this arm is an inference-only wrapper,13.07,3.8388,3.839,6.8337,3.837,2.9519,88806,,
+scaling,scaling,524288,ok,no training step: this arm is an inference-only wrapper,26.23,7.6535,7.654,13.9253,7.649,5.9731,87775,,
+scaling,scaling,1048576,SKIP: OOM,OutOfMemoryError,0.26,7.0201,,,,,,,

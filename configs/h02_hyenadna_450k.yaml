@@ -1,0 +1,11 @@
+# External pretrained reference arm — released hyenadna checkpoint pushed through OUR harness
+# (same hg38 windows, same seeds, same frozen linear probe, same bootstrap CIs as D01-D07).
+# Different pretraining budget from every D-arm: label it as such in every table.
+model_id: hyenadna_450k
+model_module: external
+run_name: hyenadna_450k-pretrained-reference
+
+external_family: hyenadna
+hf_model_id: LongSafari/hyenadna-medium-450k-seqlen-hf
+context_length: 450000      # released pretraining length; longer is extrapolation
+precision: bf16

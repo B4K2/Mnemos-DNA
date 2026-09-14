@@ -1,0 +1,1742 @@
+{
+  "meta": {
+    "model_id": "d01",
+    "run_name": "d01-kda-nope",
+    "checkpoint": "results/d01/final.pt",
+    "checkpoint_step": 238,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 65536,
+    "lengths": [
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144,
+      524288,
+      1048576
+    ],
+    "benchmarks": [
+      "lm",
+      "needle",
+      "scaling",
+      "lrb",
+      "species",
+      "genomic_benchmarks",
+      "nt",
+      "gue"
+    ],
+    "wall_time_s": 42701.3,
+    "total_params": 120607632,
+    "non_embedding_params": 120601488,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "ce": 1.2128,
+        "ppl": 3.363,
+        "bpn": 1.7496,
+        "acc": 0.406,
+        "eval_tokens": 65536
+      },
+      "note": "",
+      "seconds": 4.64198112487793,
+      "peak_mem_gb": 0.514052608
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "ce": 1.2135,
+        "ppl": 3.365,
+        "bpn": 1.7507,
+        "acc": 0.4036,
+        "eval_tokens": 131072
+      },
+      "note": "",
+      "seconds": 3.0089924335479736,
+      "peak_mem_gb": 0.766300672
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "ce": 1.2359,
+        "ppl": 3.441,
+        "bpn": 1.783,
+        "acc": 0.391,
+        "eval_tokens": 262144
+      },
+      "note": "",
+      "seconds": 6.132979154586792,
+      "peak_mem_gb": 1.2707968
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "ce": 1.2191,
+        "ppl": 3.384,
+        "bpn": 1.7588,
+        "acc": 0.4068,
+        "eval_tokens": 524288
+      },
+      "note": "",
+      "seconds": 12.314045190811157,
+      "peak_mem_gb": 2.279789056
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "ce": 1.243,
+        "ppl": 3.466,
+        "bpn": 1.7933,
+        "acc": 0.3919,
+        "eval_tokens": 1048576
+      },
+      "note": "",
+      "seconds": 25.00094199180603,
+      "peak_mem_gb": 4.297773568
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "ce": 1.2523,
+        "ppl": 3.498,
+        "bpn": 1.8067,
+        "acc": 0.3841,
+        "eval_tokens": 2097152,
+        "host_peak_gb": 1.795
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 48.53328204154968,
+      "peak_mem_gb": 1.558569984
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "ce": 1.2487,
+        "ppl": 3.486,
+        "bpn": 1.8014,
+        "acc": 0.3864,
+        "eval_tokens": 4194304,
+        "host_peak_gb": 1.82
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 97.25297141075134,
+      "peak_mem_gb": 2.779636736
+    },
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "ce": 1.2319,
+        "ppl": 3.428,
+        "bpn": 1.7773,
+        "acc": 0.3951,
+        "eval_tokens": 8388608,
+        "host_peak_gb": 1.854
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 193.79510045051575,
+      "peak_mem_gb": 5.22177024
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2031,
+        "stderr": 0.0356,
+        "chance": 0.25,
+        "p_correct": 0.2481,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0387,
+        "chance": 0.25,
+        "p_correct": 0.2536,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2422,
+        "stderr": 0.0379,
+        "chance": 0.25,
+        "p_correct": 0.252,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2109,
+        "stderr": 0.0361,
+        "chance": 0.25,
+        "p_correct": 0.2447,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 16384 does not fit ctx=8192",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=8192",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=8192",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=8192",
+      "seconds": 11.601317554712296,
+      "peak_mem_gb": 0.513988096
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2812,
+        "stderr": 0.0397,
+        "chance": 0.25,
+        "p_correct": 0.2672,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2344,
+        "stderr": 0.0374,
+        "chance": 0.25,
+        "p_correct": 0.2453,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0387,
+        "chance": 0.25,
+        "p_correct": 0.2416,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2188,
+        "stderr": 0.0365,
+        "chance": 0.25,
+        "p_correct": 0.2459,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 16384 does not fit ctx=16384",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=16384",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=16384",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=16384",
+      "seconds": 23.724776953458786,
+      "peak_mem_gb": 0.766170624
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2188,
+        "stderr": 0.0365,
+        "chance": 0.25,
+        "p_correct": 0.2398,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2656,
+        "stderr": 0.039,
+        "chance": 0.25,
+        "p_correct": 0.2445,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2266,
+        "stderr": 0.037,
+        "chance": 0.25,
+        "p_correct": 0.2426,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0387,
+        "chance": 0.25,
+        "p_correct": 0.2478,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.1875,
+        "stderr": 0.0345,
+        "chance": 0.25,
+        "p_correct": 0.232,
+        "distance_bp": 16384,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 32768,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=32768",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 32768,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=32768",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 32768,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=32768",
+      "seconds": 60.004313707351685,
+      "peak_mem_gb": 1.27053568
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.3047,
+        "stderr": 0.0407,
+        "chance": 0.25,
+        "p_correct": 0.2626,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2969,
+        "stderr": 0.0404,
+        "chance": 0.25,
+        "p_correct": 0.252,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0387,
+        "chance": 0.25,
+        "p_correct": 0.246,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2734,
+        "stderr": 0.0394,
+        "chance": 0.25,
+        "p_correct": 0.2558,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2969,
+        "stderr": 0.0404,
+        "chance": 0.25,
+        "p_correct": 0.2696,
+        "distance_bp": 16384,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 65536,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=65536",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 65536,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=65536",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 65536,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=65536",
+      "seconds": 121.92069646716118,
+      "peak_mem_gb": 2.279265792
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2344,
+        "stderr": 0.0374,
+        "chance": 0.25,
+        "p_correct": 0.2445,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2188,
+        "stderr": 0.0365,
+        "chance": 0.25,
+        "p_correct": 0.2461,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0387,
+        "chance": 0.25,
+        "p_correct": 0.2507,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.3047,
+        "stderr": 0.0407,
+        "chance": 0.25,
+        "p_correct": 0.2583,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2109,
+        "stderr": 0.0361,
+        "chance": 0.25,
+        "p_correct": 0.2331,
+        "distance_bp": 16384,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "recall_acc": 0.2188,
+        "stderr": 0.0365,
+        "chance": 0.25,
+        "p_correct": 0.2323,
+        "distance_bp": 65536,
+        "key_len": 12,
+        "trials": 128
+      },
+      "note": "",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 131072,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=131072",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 131072,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=131072",
+      "seconds": 297.4649435579777,
+      "peak_mem_gb": 4.296726016
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2656,
+        "stderr": 0.039,
+        "chance": 0.25,
+        "p_correct": 0.2543,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.262
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2812,
+        "stderr": 0.0397,
+        "chance": 0.25,
+        "p_correct": 0.2685,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.262
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2422,
+        "stderr": 0.0379,
+        "chance": 0.25,
+        "p_correct": 0.2476,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.262
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2891,
+        "stderr": 0.0401,
+        "chance": 0.25,
+        "p_correct": 0.2788,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.262
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.25,
+        "stderr": 0.0383,
+        "chance": 0.25,
+        "p_correct": 0.2561,
+        "distance_bp": 16384,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.262
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2344,
+        "stderr": 0.0374,
+        "chance": 0.25,
+        "p_correct": 0.2396,
+        "distance_bp": 65536,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.262
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 262144,
+      "status": "SKIP: data unavailable",
+      "metrics": {
+        "host_peak_gb": 2.262
+      },
+      "note": "distance 262144 does not fit ctx=262144",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 262144,
+      "status": "SKIP: data unavailable",
+      "metrics": {
+        "host_peak_gb": 2.262
+      },
+      "note": "distance 1048576 does not fit ctx=262144",
+      "seconds": 581.1619579494,
+      "peak_mem_gb": 1.556473856
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.3125,
+        "stderr": 0.041,
+        "chance": 0.25,
+        "p_correct": 0.2703,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2656,
+        "stderr": 0.039,
+        "chance": 0.25,
+        "p_correct": 0.2566,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2656,
+        "stderr": 0.039,
+        "chance": 0.25,
+        "p_correct": 0.2592,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2344,
+        "stderr": 0.0374,
+        "chance": 0.25,
+        "p_correct": 0.2376,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2266,
+        "stderr": 0.037,
+        "chance": 0.25,
+        "p_correct": 0.2431,
+        "distance_bp": 16384,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2109,
+        "stderr": 0.0361,
+        "chance": 0.25,
+        "p_correct": 0.2406,
+        "distance_bp": 65536,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2578,
+        "stderr": 0.0387,
+        "chance": 0.25,
+        "p_correct": 0.2498,
+        "distance_bp": 262144,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.34
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 524288,
+      "status": "SKIP: data unavailable",
+      "metrics": {
+        "host_peak_gb": 2.34
+      },
+      "note": "distance 1048576 does not fit ctx=524288",
+      "seconds": 1348.761606425047,
+      "peak_mem_gb": 2.775443456
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.25,
+        "stderr": 0.0383,
+        "chance": 0.25,
+        "p_correct": 0.2606,
+        "distance_bp": 64,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2422,
+        "stderr": 0.0379,
+        "chance": 0.25,
+        "p_correct": 0.261,
+        "distance_bp": 256,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2734,
+        "stderr": 0.0394,
+        "chance": 0.25,
+        "p_correct": 0.2523,
+        "distance_bp": 1024,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.25,
+        "stderr": 0.0383,
+        "chance": 0.25,
+        "p_correct": 0.2599,
+        "distance_bp": 4096,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.3438,
+        "stderr": 0.042,
+        "chance": 0.25,
+        "p_correct": 0.2596,
+        "distance_bp": 16384,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2266,
+        "stderr": 0.037,
+        "chance": 0.25,
+        "p_correct": 0.2366,
+        "distance_bp": 65536,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "recall_acc": 0.2109,
+        "stderr": 0.0361,
+        "chance": 0.25,
+        "p_correct": 0.2408,
+        "distance_bp": 262144,
+        "key_len": 12,
+        "trials": 128,
+        "host_peak_gb": 2.369
+      },
+      "note": "lowmem: chunked prefill (chunk=16384) + CPU activation offload",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 1048576,
+      "status": "SKIP: data unavailable",
+      "metrics": {
+        "host_peak_gb": 2.369
+      },
+      "note": "distance 1048576 does not fit ctx=1048576",
+      "seconds": 2698.071372449398,
+      "peak_mem_gb": 5.213382656
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.514,
+        "prefill_tok_per_s": 49589,
+        "prefill_s": 0.1652,
+        "decode_peak_gb": 0.514,
+        "decode_s_per_tok_nocache": 0.1532,
+        "train_peak_gb": 1.106,
+        "train_tok_per_s": 10452
+      },
+      "note": "",
+      "seconds": 2.4463438987731934,
+      "peak_mem_gb": 0.271499264
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.775,
+        "prefill_tok_per_s": 41854,
+        "prefill_s": 0.3915,
+        "decode_peak_gb": 0.775,
+        "decode_s_per_tok_nocache": 0.3218,
+        "train_peak_gb": 1.738,
+        "train_tok_per_s": 10501
+      },
+      "note": "",
+      "seconds": 4.388658285140991,
+      "peak_mem_gb": 0.271630336
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 1.279,
+        "prefill_tok_per_s": 43226,
+        "prefill_s": 0.7581,
+        "decode_peak_gb": 1.279,
+        "decode_s_per_tok_nocache": 0.67,
+        "train_peak_gb": 3.2,
+        "train_tok_per_s": 10059
+      },
+      "note": "",
+      "seconds": 8.370904445648193,
+      "peak_mem_gb": 0.27189248
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 2.287,
+        "prefill_tok_per_s": 41674,
+        "prefill_s": 1.5726,
+        "decode_peak_gb": 2.288,
+        "decode_s_per_tok_nocache": 1.4898,
+        "train_peak_gb": 6.126,
+        "train_tok_per_s": 10121
+      },
+      "note": "",
+      "seconds": 11.745303630828857,
+      "peak_mem_gb": 0.272416768
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 4.302,
+        "prefill_tok_per_s": 42773,
+        "prefill_s": 3.0644,
+        "decode_peak_gb": 4.303,
+        "decode_s_per_tok_nocache": 3.0825,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "train step OOM (inference figures above are still valid); CPU activation offload also OOM'd",
+      "seconds": 13.500783920288086,
+      "peak_mem_gb": 0.273465344
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 262144,
+      "status": "ok: lowmem",
+      "metrics": {
+        "infer_peak_gb": 1.558,
+        "prefill_tok_per_s": 44154,
+        "prefill_s": 5.937,
+        "decode_peak_gb": 1.484,
+        "decode_s_per_tok_nocache": 5.9638,
+        "train_peak_gb": null,
+        "train_tok_per_s": null,
+        "host_peak_gb": 3.461
+      },
+      "note": "train step OOM (inference figures above are still valid); CPU activation offload also OOM'd",
+      "seconds": 20.416339874267578,
+      "peak_mem_gb": 0.275562496
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 524288,
+      "status": "ok: lowmem",
+      "metrics": {
+        "infer_peak_gb": 2.768,
+        "prefill_tok_per_s": 44129,
+        "prefill_s": 11.8808,
+        "decode_peak_gb": 2.698,
+        "decode_s_per_tok_nocache": 11.9028,
+        "train_peak_gb": null,
+        "train_tok_per_s": null,
+        "host_peak_gb": 4.534
+      },
+      "note": "train step OOM (inference figures above are still valid); CPU activation offload also OOM'd",
+      "seconds": 37.85306787490845,
+      "peak_mem_gb": 0.2797568
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 1048576,
+      "status": "ok: lowmem",
+      "metrics": {
+        "infer_peak_gb": 5.189,
+        "prefill_tok_per_s": 44099,
+        "prefill_s": 23.7778,
+        "decode_peak_gb": 5.122,
+        "decode_s_per_tok_nocache": 23.8332,
+        "train_peak_gb": null,
+        "train_tok_per_s": null,
+        "host_peak_gb": 6.683
+      },
+      "note": "train step OOM (inference figures above are still valid); CPU activation offload also OOM'd",
+      "seconds": 74.58366703987122,
+      "peak_mem_gb": 0.288145408
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "fasta not found: data/hg38/hg38.ml.fa",
+      "seconds": 0.00045871734619140625,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "fasta not found: data/hg38/hg38.ml.fa",
+      "seconds": 0.0004367828369140625,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 32768,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "fasta not found: data/hg38/hg38.ml.fa",
+      "seconds": 0.0004851818084716797,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 65536,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "fasta not found: data/hg38/hg38.ml.fa",
+      "seconds": 0.0004265308380126953,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 131072,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "ctx 131072 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it",
+      "seconds": 0.0003693103790283203,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 262144,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "ctx 262144 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it",
+      "seconds": 0.0005040168762207031,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 524288,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "ctx 524288 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it",
+      "seconds": 0.00035858154296875,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "lrb",
+      "task": "lrb",
+      "ctx": 1048576,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "ctx 1048576 > --lrb-max-ctx 65536: embedding 384 windows of this length would dominate the whole suite's runtime; raise the flag to include it",
+      "seconds": 0.00034809112548828125,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.0004315376281738281,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 16384,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.0003561973571777344,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 32768,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.00034737586975097656,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 65536,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.0003826618194580078,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 131072,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.0003495216369628906,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 262144,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.0003502368927001953,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 524288,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.000385284423828125,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "species",
+      "task": "species",
+      "ctx": 1048576,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --species-dir given (see benchmarks/species.py for setup)",
+      "seconds": 0.00035119056701660156,
+      "peak_mem_gb": 0.27136768
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "mouse_enhancers",
+      "ctx": 4776,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.781,
+        "mcc": 0.5653,
+        "auroc": 0.8865,
+        "n_train": 968,
+        "n_test": 242,
+        "seq_len": 4776
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "coding_vs_intergenomic",
+      "ctx": 200,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.877,
+        "mcc": 0.7538,
+        "auroc": 0.946,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 200
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "human_vs_worm",
+      "ctx": 200,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.942,
+        "mcc": 0.8842,
+        "auroc": 0.9838,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 200
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "human_enhancers_cohn",
+      "ctx": 500,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.699,
+        "mcc": 0.3984,
+        "auroc": 0.7697,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 500
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "human_enhancers_ensembl",
+      "ctx": 573,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.7665,
+        "mcc": 0.5329,
+        "auroc": 0.8313,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 573
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "human_regulatory",
+      "ctx": 802,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.6005,
+        "mcc": 0.397,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 802
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "human_nontata_promoters",
+      "ctx": 251,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.826,
+        "mcc": 0.6532,
+        "auroc": 0.907,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 251
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "genomic_benchmarks",
+      "task": "human_ocr_ensembl",
+      "ctx": 593,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.6675,
+        "mcc": 0.3337,
+        "auroc": 0.7253,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 593
+      },
+      "note": "",
+      "seconds": 59.93146353960037,
+      "peak_mem_gb": 1.541689344
+    },
+    {
+      "benchmark": "nt",
+      "task": "promoter_all",
+      "ctx": 300,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.8441,
+        "mcc": 0.6883,
+        "auroc": 0.9233,
+        "n_train": 4000,
+        "n_test": 1584,
+        "seq_len": 300
+      },
+      "note": "",
+      "seconds": 82.41663300991058,
+      "peak_mem_gb": 0.543536128
+    },
+    {
+      "benchmark": "nt",
+      "task": "promoter_no_tata",
+      "ctx": 300,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.8426,
+        "mcc": 0.6854,
+        "auroc": 0.9286,
+        "n_train": 4000,
+        "n_test": 1372,
+        "seq_len": 300
+      },
+      "note": "",
+      "seconds": 82.41663300991058,
+      "peak_mem_gb": 0.543536128
+    },
+    {
+      "benchmark": "nt",
+      "task": "splice_sites_all",
+      "ctx": 600,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.482,
+        "mcc": 0.2256,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 600
+      },
+      "note": "",
+      "seconds": 82.41663300991058,
+      "peak_mem_gb": 0.543536128
+    },
+    {
+      "benchmark": "nt",
+      "task": "splice_sites_donors",
+      "ctx": 600,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.7165,
+        "mcc": 0.4393,
+        "auroc": 0.7912,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 600
+      },
+      "note": "",
+      "seconds": 82.41663300991058,
+      "peak_mem_gb": 0.543536128
+    },
+    {
+      "benchmark": "nt",
+      "task": "enhancers",
+      "ctx": 400,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.732,
+        "mcc": 0.4706,
+        "auroc": 0.7913,
+        "n_train": 4000,
+        "n_test": 2000,
+        "seq_len": 400
+      },
+      "note": "",
+      "seconds": 82.41663300991058,
+      "peak_mem_gb": 0.543536128
+    },
+    {
+      "benchmark": "nt",
+      "task": "H3K4me3",
+      "ctx": 1000,
+      "status": "ok",
+      "metrics": {
+        "acc": 0.7977,
+        "mcc": 0.5961,
+        "auroc": 0.8675,
+        "n_train": 4000,
+        "n_test": 776,
+        "seq_len": 1000
+      },
+      "note": "",
+      "seconds": 82.41663300991058,
+      "peak_mem_gb": 0.543536128
+    },
+    {
+      "benchmark": "gue",
+      "task": "gue",
+      "ctx": null,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "no --gue-dir given (GUE has no auto-downloadable mirror; see benchmarks/gue.py for the download command)",
+      "seconds": 0.000396728515625,
+      "peak_mem_gb": 0.27136768
+    }
+  ]
+}

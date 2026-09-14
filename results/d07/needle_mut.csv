@@ -1,0 +1,18 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,ce_control,ce_repeat,copy_advantage,copy_advantage_hi,copy_advantage_lo,copy_advantage_mean,distance_bp,mode,mut_identity,n_boot,n_mutations,seg_len,stderr,trials
+needle,d=64,8192,ok,,10.46,0.7598,1.1316,0.2204,0.9112,0.973,0.8489,0.9113,64,copy,1.0,1000,0,256,0.0328,128
+needle,d=256,8192,ok,,10.46,0.7598,1.154,0.2268,0.9272,0.9836,0.8645,0.9268,256,copy,1.0,1000,0,256,0.031,128
+needle,d=1024,8192,ok,,10.46,0.7598,1.1827,0.2289,0.9539,1.0058,0.8968,0.9536,1024,copy,1.0,1000,0,256,0.0285,128
+needle,d=4096,8192,ok,,10.46,0.7598,1.0859,0.3185,0.7674,0.8361,0.6942,0.7703,4096,copy,1.0,1000,0,256,0.0357,128
+needle,d=16384,8192,SKIP: data unavailable,distance 16384 does not fit ctx=8192 with seg=256,10.46,0.7598,,,,,,,,,,,,,,
+needle,d=65536,8192,SKIP: data unavailable,distance 65536 does not fit ctx=8192 with seg=256,10.46,0.7598,,,,,,,,,,,,,,
+needle,d=262144,8192,SKIP: data unavailable,distance 262144 does not fit ctx=8192 with seg=256,10.46,0.7598,,,,,,,,,,,,,,
+needle,d=1048576,8192,SKIP: data unavailable,distance 1048576 does not fit ctx=8192 with seg=256,10.46,0.7598,,,,,,,,,,,,,,
+needle,d=64,32768,ok,,46.93,2.0475,1.1139,0.2334,0.8805,0.9457,0.8128,0.8807,64,copy,1.0,1000,0,256,0.0351,128
+needle,d=256,32768,ok,,46.93,2.0475,1.0944,0.2717,0.8226,0.8888,0.7589,0.8226,256,copy,1.0,1000,0,256,0.0344,128
+needle,d=1024,32768,ok,,46.93,2.0475,1.0927,0.2773,0.8154,0.8833,0.7469,0.8167,1024,copy,1.0,1000,0,256,0.0367,128
+needle,d=4096,32768,ok,,46.93,2.0475,1.1407,0.2922,0.8484,0.9041,0.7872,0.8475,4096,copy,1.0,1000,0,256,0.0301,128
+needle,d=16384,32768,ok,,46.93,2.0475,1.135,0.3641,0.7709,0.8299,0.7071,0.7687,16384,copy,1.0,1000,0,256,0.0325,128
+needle,d=65536,32768,SKIP: data unavailable,distance 65536 does not fit ctx=32768 with seg=256,46.93,2.0475,,,,,,,,,,,,,,
+needle,d=262144,32768,SKIP: data unavailable,distance 262144 does not fit ctx=32768 with seg=256,46.93,2.0475,,,,,,,,,,,,,,
+needle,d=1048576,32768,SKIP: data unavailable,distance 1048576 does not fit ctx=32768 with seg=256,46.93,2.0475,,,,,,,,,,,,,,
+needle,needle,134144,SKIP: above benchmark ctx cap,ctx > --needle-max-ctx (131072),0.0,0.0,,,,,,,,,,,,,,

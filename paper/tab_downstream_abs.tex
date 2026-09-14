@@ -1,0 +1,37 @@
+\begin{table}[!tbp]
+\centering\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Task (full fine-tune, test accuracy) & Pure-KDA (D01) & Mnemos-DNA & Mnemos-DNA-C & random init \\
+\midrule
+NT splice sites (donors) & 0.779 & 0.783\,{\scriptsize$\pm$0.001}$^{(2)}$ & \best{0.787\,{\scriptsize$\pm$0.002}$^{(3)}$} & 0.897\,{\scriptsize$\pm$0.005}$^{(2)}$ \\
+NT splice sites (all) & 0.713 & \best{0.740\,{\scriptsize$\pm$0.036}$^{(2)}$} & 0.733\,{\scriptsize$\pm$0.003}$^{(3)}$ & 0.832\,{\scriptsize$\pm$0.002}$^{(2)}$ \\
+NT promoter (all) & 0.835 & \best{0.851\,{\scriptsize$\pm$0.004}$^{(2)}$} & 0.844\,{\scriptsize$\pm$0.002}$^{(3)}$ & 0.850\,{\scriptsize$\pm$0.003}$^{(2)}$ \\
+NT promoter (no TATA) & 0.865 & 0.863\,{\scriptsize$\pm$0.009}$^{(2)}$ & \best{0.869\,{\scriptsize$\pm$0.005}$^{(3)}$} & 0.846\,{\scriptsize$\pm$0.006}$^{(2)}$ \\
+NT enhancers & \best{0.738} & 0.721\,{\scriptsize$\pm$0.008}$^{(3)}$ & 0.724\,{\scriptsize$\pm$0.024}$^{(3)}$ & 0.735\,{\scriptsize$\pm$0.010}$^{(2)}$ \\
+NT H3K4me3 & 0.792 & 0.798\,{\scriptsize$\pm$0.009}$^{(3)}$ & \best{0.808\,{\scriptsize$\pm$0.015}$^{(3)}$} & 0.790\,{\scriptsize$\pm$0.002}$^{(2)}$ \\
+\midrule
+GB mouse enhancers & \best{0.831} & 0.816\,{\scriptsize$\pm$0.003}$^{(2)}$ & 0.825\,{\scriptsize$\pm$0.019}$^{(3)}$ & --- \\
+GB human OCR (Ensembl) & \best{0.694} & 0.684\,{\scriptsize$\pm$0.009}$^{(2)}$ & 0.677\,{\scriptsize$\pm$0.013}$^{(3)}$ & --- \\
+GB human regulatory & 0.608 & \best{0.641\,{\scriptsize$\pm$0.018}$^{(2)}$} & 0.607\,{\scriptsize$\pm$0.017}$^{(3)}$ & --- \\
+GB human enhancers (Ensembl) & 0.799 & \best{0.815\,{\scriptsize$\pm$0.002}$^{(2)}$} & 0.811\,{\scriptsize$\pm$0.007}$^{(3)}$ & --- \\
+GB non-TATA promoters & 0.836 & \best{0.867\,{\scriptsize$\pm$0.013}$^{(2)}$} & 0.863\,{\scriptsize$\pm$0.008}$^{(3)}$ & --- \\
+GB human vs worm & 0.962 & \best{0.963\,{\scriptsize$\pm$0.004}$^{(2)}$} & 0.958\,{\scriptsize$\pm$0.004}$^{(3)}$ & --- \\
+GB coding vs intergenomic & 0.896 & \best{0.900\,{\scriptsize$\pm$0.012}$^{(2)}$} & 0.899\,{\scriptsize$\pm$0.002}$^{(3)}$ & --- \\
+GB human enhancers (Cohn) & 0.710 & 0.686\,{\scriptsize$\pm$0.002}$^{(2)}$ & \best{0.714\,{\scriptsize$\pm$0.002}$^{(3)}$} & --- \\
+\bottomrule
+\end{tabular}}
+\caption{Absolute per-task fine-tuned accuracy on the Nucleotide Transformer subset and all eight
+Genomic Benchmarks tasks under one matched protocol for every column (6 epochs / 6{,}000 steps,
+4{,}000/2{,}000 train/test caps, $[\text{mean}|\text{last}|\text{8 bins}]{+}$RC head).
+Mnemos-DNA(-C) cells are mean\,$\pm$\,sample std over fine-tuning seeds (per-cell $n$ in
+superscript; Mnemos-DNA's seed-0 Genomic Benchmarks rows were archived by the harness's
+fingerprint guard, leaving $n{=}2$ there). Pure-KDA (D01) is a single seed. The random-init
+column fine-tunes the Mnemos-DNA architecture from scratch under the same head (2 seeds,
+Nucleotide Transformer only). All our arms are $\sim$2.3M-parameter models pretrained for 4.5B
+tokens on a single 8\,GB consumer GPU; published HyenaDNA / Nucleotide Transformer / DNABERT-2
+numbers on these suites come from larger models and far larger pretraining budgets, so any
+comparison to them is a comparison across compute budgets, not architectures.}
+\label{tab:downstream-abs}
+\end{table}

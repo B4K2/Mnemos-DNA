@@ -1,0 +1,34 @@
+# secrets & env
+.env
+.venv/
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# data & experiment artifacts (checkpoints are GBs; small result tables are kept)
+data/
+mlartifacts/
+mlflow.db
+results/*
+!results/*/
+results/*/*
+!results/*/*.json
+!results/*/*.csv
+results/*/*.partial.jsonl*
+results/_queue/
+results/_archive/
+
+# latex build
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/figures/*.pdf
+
+.DS_Store
+nohup.out
+
+CLAUDE.md

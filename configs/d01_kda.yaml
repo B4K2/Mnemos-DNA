@@ -1,0 +1,8 @@
+# D01: pure KDA, NoPE — baseline linear-attention arm (see CLAUDE.md model matrix §3)
+model_id: d01
+run_name: d01-kda-nope
+
+attention_type: kda
+pos_type: none
+
+# Everything else (d_model, num_layers, context_length, training_tokens, ...) comes from base.yaml

@@ -1,0 +1,13 @@
+# Random-init control for the external HyenaDNA-1M arm: same architecture, same tokenizer,
+# same fine-tune protocol, NO pretrained weights. Tests whether the "ultra-long fixed-context
+# pretraining damages sub-kilobase grammar" finding (random init > pretrained on splice sites,
+# observed on our KDA arms) also holds for HyenaDNA's released 1M-context checkpoint.
+model_id: hyenadna_1m_randinit
+model_module: external
+run_name: hyenadna_1m-random-init-control
+
+external_family: hyenadna
+hf_model_id: LongSafari/hyenadna-large-1m-seqlen-hf
+random_init: true
+context_length: 1048576
+precision: bf16

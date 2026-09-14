@@ -1,0 +1,52 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,acc,auroc,ft_batch,ft_best_epoch,ft_dev_acc,ft_epochs,ft_micro_batch,ft_seconds,ft_steps,mcc,mode,n_test,n_train,seq_len
+genomic_benchmarks,mouse_enhancers,4776,ok,,1330.66,7.6942,0.7603,0.85,32,1,0.8144,3,4,302.3,84,0.5232,finetune,242,968,4776
+genomic_benchmarks,coding_vs_intergenomic,200,ok,,1330.66,7.6942,0.9251,0.9789,32,1,0.9297,2,8,1415.6,3000,0.8508,finetune,25000,75000,200
+genomic_benchmarks,human_vs_worm,200,ok,,1330.66,7.6942,0.9686,0.9957,32,2,0.9683,2,8,1364.2,3000,0.9372,finetune,25000,75000,200
+genomic_benchmarks,human_enhancers_cohn,500,ok,,1330.66,7.6942,0.7375,0.8198,32,1,0.7367,3,8,1159.6,1761,0.4764,finetune,6948,20843,500
+genomic_benchmarks,human_enhancers_ensembl,573,ok,,1330.66,7.6942,0.8772,0.9493,32,1,0.8778,1,8,1417.0,3000,0.7552,finetune,30970,123872,573
+genomic_benchmarks,human_regulatory,802,ok,,1330.66,7.6942,0.8766,0.9673,32,1,0.8776,1,8,2223.6,3000,0.815,finetune,57713,231348,802
+genomic_benchmarks,human_nontata_promoters,251,ok,,1330.66,7.6942,0.9652,0.9923,32,3,0.9601,3,8,966.6,2289,0.9308,finetune,9034,27097,251
+genomic_benchmarks,human_ocr_ensembl,593,ok,,1330.66,7.6942,0.7839,0.871,32,1,0.7811,1,8,1746.8,3000,0.5699,finetune,34952,139804,593
+nt,promoter_all,300,ok,,1579.87,5.6263,0.8548,0.9375,32,2,0.8583,3,8,1154.5,2532,0.7099,finetune,1584,30000,300
+nt,promoter_no_tata,300,ok,,1579.87,5.6263,0.8695,0.9462,32,2,0.873,3,8,1067.9,2532,0.7394,finetune,1372,30000,300
+nt,splice_sites_all,600,ok,,1579.87,5.6263,0.618,0.7922,32,2,0.6027,3,8,1942.8,2532,0.4266,finetune,3000,30000,600
+nt,splice_sites_donors,600,ok,,1579.87,5.6263,0.8157,0.8888,32,2,0.7993,3,8,1920.1,2532,0.6312,finetune,3000,30000,600
+nt,enhancers,400,ok,,1579.87,5.6263,0.7467,0.823,32,1,0.7603,3,8,1407.4,2532,0.4985,finetune,3000,30000,400
+nt,H3K4me3,1000,ok,,1579.87,5.6263,0.8119,0.8869,32,3,0.8317,3,8,1973.0,1476,0.6237,finetune,776,17468,1000
+gue,GUE/EPI_GM12878,,SKIP: data unavailable,"SkipBenchmark: data/GUE/EPI_GM12878/train.csv is not a GUE sequence,label csv",1435.45,7.5645,,,,,,,,,,,,,,
+gue,GUE/EPI_HUVEC,,SKIP: data unavailable,"SkipBenchmark: data/GUE/EPI_HUVEC/train.csv is not a GUE sequence,label csv",1435.45,7.5645,,,,,,,,,,,,,,
+gue,GUE/EPI_HeLa-S3,,SKIP: data unavailable,"SkipBenchmark: data/GUE/EPI_HeLa-S3/train.csv is not a GUE sequence,label csv",1435.45,7.5645,,,,,,,,,,,,,,
+gue,GUE/EPI_IMR90,,SKIP: data unavailable,"SkipBenchmark: data/GUE/EPI_IMR90/train.csv is not a GUE sequence,label csv",1435.45,7.5645,,,,,,,,,,,,,,
+gue,GUE/EPI_K562,,SKIP: data unavailable,"SkipBenchmark: data/GUE/EPI_K562/train.csv is not a GUE sequence,label csv",1435.45,7.5645,,,,,,,,,,,,,,
+gue,GUE/EPI_NHEK,,SKIP: data unavailable,"SkipBenchmark: data/GUE/EPI_NHEK/train.csv is not a GUE sequence,label csv",1435.45,7.5645,,,,,,,,,,,,,,
+gue,GUE/emp_H3,500,ok,,1435.45,7.5645,0.8811,0.9437,32,3,0.8948,3,8,669.8,1011,0.7622,finetune,1497,11971,500
+gue,GUE/emp_H3K14ac,500,ok,,1435.45,7.5645,0.7861,0.8505,32,3,0.7697,3,8,1536.4,2232,0.5591,finetune,3305,26438,500
+gue,GUE/emp_H3K36me3,500,ok,,1435.45,7.5645,0.7749,0.8394,32,3,0.7779,3,8,1586.6,2355,0.5424,finetune,3488,27904,500
+gue,GUE/emp_H3K4me1,500,ok,,1435.45,7.5645,0.7232,0.7841,32,3,0.7176,3,8,1388.4,2139,0.4444,finetune,3168,25341,500
+gue,GUE/emp_H3K4me2,500,ok,,1435.45,7.5645,0.7214,0.781,32,3,0.7153,3,8,1373.1,2073,0.4164,finetune,3069,24545,500
+gue,GUE/emp_H3K4me3,500,ok,,1435.45,7.5645,0.7201,0.7899,32,3,0.7204,3,8,1656.0,2484,0.4372,finetune,3680,29439,500
+gue,GUE/emp_H3K79me3,500,ok,,1435.45,7.5645,0.8148,0.8786,32,3,0.8357,3,8,1308.9,1947,0.6318,finetune,2884,23069,500
+gue,GUE/emp_H3K9ac,500,ok,,1435.45,7.5645,0.7801,0.8533,32,2,0.7877,3,8,1196.9,1878,0.5671,finetune,2779,22224,500
+gue,GUE/emp_H4,500,ok,,1435.45,7.5645,0.8939,0.9462,32,2,0.8878,3,8,627.7,987,0.7857,finetune,1461,11679,500
+gue,GUE/emp_H4ac,500,ok,,1435.45,7.5645,0.7666,0.8391,32,3,0.7599,3,8,1446.8,2304,0.5355,finetune,3410,27275,500
+gue,GUE/fungi_species_20,8192,ok,,1435.45,7.5645,0.84,0.9913,32,3,0.8462,3,2,6879.2,675,0.8321,finetune,1000,8000,8192
+gue,GUE/human_tf_0,101,ok,,1435.45,7.5645,0.806,0.896,32,2,0.7909,3,8,1008.3,2733,0.6257,finetune,1000,32378,101
+gue,GUE/human_tf_1,101,ok,,1435.45,7.5645,0.85,0.9303,32,1,0.7872,3,8,1054.8,2589,0.7091,finetune,1000,30672,101
+gue,GUE/human_tf_2,101,ok,,1435.45,7.5645,0.815,0.8989,32,2,0.7726,3,8,678.1,1605,0.6326,finetune,1000,19000,101
+gue,GUE/human_tf_3,101,ok,,1435.45,7.5645,0.754,0.8473,32,2,0.7143,3,8,973.5,2304,0.5212,finetune,1000,27294,101
+gue,GUE/human_tf_4,101,ok,,1435.45,7.5645,0.85,0.9334,32,3,0.8774,3,8,638.4,1605,0.7023,finetune,1000,19000,101
+gue,GUE/mouse_0,101,ok,,1435.45,7.5645,0.7358,0.816,32,2,0.7515,3,8,213.0,549,0.4717,finetune,810,6478,101
+gue,GUE/mouse_1,101,ok,,1435.45,7.5645,0.9137,0.9743,32,2,0.9059,2,8,1240.9,3000,0.8276,finetune,6745,53952,101
+gue,GUE/mouse_2,101,ok,,1435.45,7.5645,0.8841,0.952,32,1,0.8855,3,8,89.4,222,0.7741,finetune,328,2620,101
+gue,GUE/mouse_3,101,ok,,1435.45,7.5645,0.8159,0.8902,32,3,0.8377,3,8,66.9,162,0.6321,finetune,239,1904,101
+gue,GUE/mouse_4,101,ok,,1435.45,7.5645,0.7132,0.7934,32,1,0.722,3,8,487.0,1272,0.4325,finetune,1883,15064,101
+gue,GUE/phage_fragments,4000,ok,,1435.45,7.5645,0.8892,0.959,32,3,0.892,3,4,14559.1,3000,0.7805,finetune,4630,37044,4000
+gue,GUE/prom_300_all,300,ok,,1435.45,7.5645,0.9247,0.9803,32,3,0.9383,3,8,1313.6,3000,0.8494,finetune,5920,47356,300
+gue,GUE/prom_300_notata,300,ok,,1435.45,7.5645,0.9627,0.9927,32,3,0.9689,3,8,1306.2,3000,0.9255,finetune,5307,42452,300
+gue,GUE/prom_300_tata,300,ok,,1435.45,7.5645,0.7945,0.8705,32,2,0.7943,3,8,178.2,414,0.5885,finetune,613,4904,300
+gue,GUE/prom_core_all,70,ok,,1435.45,7.5645,0.8323,0.9124,32,2,0.8421,3,8,1011.2,3000,0.6648,finetune,5920,47356,70
+gue,GUE/prom_core_notata,70,ok,,1435.45,7.5645,0.8357,0.9153,32,2,0.8368,3,8,1000.1,3000,0.6714,finetune,5307,42452,70
+gue,GUE/prom_core_tata,70,ok,,1435.45,7.5645,0.876,0.9456,32,2,0.8717,3,8,137.0,414,0.7525,finetune,613,4904,70
+gue,GUE/splice_reconstructed,400,ok,,1435.45,7.5645,0.8961,0.9672,32,3,0.9005,3,8,1606.0,3000,0.8207,finetune,4562,36496,400
+gue,GUE/virus_covid,999,ok,,1435.45,7.5645,0.6565,0.9382,32,2,0.6531,2,8,3917.3,3000,0.6133,finetune,9168,73335,999
+gue,GUE/virus_species_40,5000,ok,,1435.45,7.5645,0.362,0.9166,32,3,0.3475,3,4,1958.6,339,0.3365,finetune,500,4000,5000

@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "model_id": "d06",
+    "run_name": "d06-kda-kmer-fastweight-nope-2m",
+    "checkpoint": "results/d06_ctx32k/step_9361.pt",
+    "checkpoint_step": 9361,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 131072,
+    "lengths": [
+      8192
+    ],
+    "benchmarks": [
+      "needle"
+    ],
+    "wall_time_s": 116.1,
+    "total_params": 2318544,
+    "non_embedding_params": 2317520,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "needle",
+      "task": "d=64",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "copy_advantage": 0.8695,
+        "stderr": 0.0479,
+        "ce_repeat": 0.2568,
+        "ce_control": 1.1262,
+        "distance_bp": 64,
+        "seg_len": 256,
+        "trials": 64,
+        "mode": "copy"
+      },
+      "note": "",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=256",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "copy_advantage": 0.8572,
+        "stderr": 0.0466,
+        "ce_repeat": 0.2636,
+        "ce_control": 1.1207,
+        "distance_bp": 256,
+        "seg_len": 256,
+        "trials": 64,
+        "mode": "copy"
+      },
+      "note": "",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1024",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "copy_advantage": 0.8558,
+        "stderr": 0.0406,
+        "ce_repeat": 0.2896,
+        "ce_control": 1.1454,
+        "distance_bp": 1024,
+        "seg_len": 256,
+        "trials": 64,
+        "mode": "copy"
+      },
+      "note": "",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=4096",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "copy_advantage": 0.8013,
+        "stderr": 0.0435,
+        "ce_repeat": 0.3464,
+        "ce_control": 1.1477,
+        "distance_bp": 4096,
+        "seg_len": 256,
+        "trials": 64,
+        "mode": "copy"
+      },
+      "note": "",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=16384",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 16384 does not fit ctx=8192 with seg=256",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=65536",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 65536 does not fit ctx=8192 with seg=256",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=262144",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 262144 does not fit ctx=8192 with seg=256",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    },
+    {
+      "benchmark": "needle",
+      "task": "d=1048576",
+      "ctx": 8192,
+      "status": "SKIP: data unavailable",
+      "metrics": {},
+      "note": "distance 1048576 does not fit ctx=8192 with seg=256",
+      "seconds": 14.478645235300064,
+      "peak_mem_gb": 0.759929344
+    }
+  ]
+}

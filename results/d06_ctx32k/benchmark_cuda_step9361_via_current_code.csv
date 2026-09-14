@@ -1,0 +1,9 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,ce_control,ce_repeat,copy_advantage,distance_bp,mode,seg_len,stderr,trials
+needle,d=64,8192,ok,,14.48,0.7599,1.1262,0.2568,0.8695,64,copy,256,0.0479,64
+needle,d=256,8192,ok,,14.48,0.7599,1.1207,0.2636,0.8572,256,copy,256,0.0466,64
+needle,d=1024,8192,ok,,14.48,0.7599,1.1454,0.2896,0.8558,1024,copy,256,0.0406,64
+needle,d=4096,8192,ok,,14.48,0.7599,1.1477,0.3464,0.8013,4096,copy,256,0.0435,64
+needle,d=16384,8192,SKIP: data unavailable,distance 16384 does not fit ctx=8192 with seg=256,14.48,0.7599,,,,,,,,
+needle,d=65536,8192,SKIP: data unavailable,distance 65536 does not fit ctx=8192 with seg=256,14.48,0.7599,,,,,,,,
+needle,d=262144,8192,SKIP: data unavailable,distance 262144 does not fit ctx=8192 with seg=256,14.48,0.7599,,,,,,,,
+needle,d=1048576,8192,SKIP: data unavailable,distance 1048576 does not fit ctx=8192 with seg=256,14.48,0.7599,,,,,,,,

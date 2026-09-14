@@ -1,0 +1,11 @@
+# External pretrained reference arm — released caduceus checkpoint pushed through OUR harness
+# (same hg38 windows, same seeds, same frozen linear probe, same bootstrap CIs as D01-D07).
+# Different pretraining budget from every D-arm: label it as such in every table.
+model_id: caduceus_ph
+model_module: external
+run_name: caduceus_ph-pretrained-reference
+
+external_family: caduceus
+hf_model_id: kuleshov-group/caduceus-ph_seqlen-131k_d_model-256_n_layer-16
+context_length: 131072      # released pretraining length; longer is extrapolation
+precision: bf16

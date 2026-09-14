@@ -1,0 +1,17 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,chance,distance_bp,key_len,p_correct,recall_acc,stderr,trials
+needle,d=64,8192,ok,,17.73,0.0608,0.25,64,12,0.2546,0.2891,0.0283,256
+needle,d=256,8192,ok,,17.73,0.0608,0.25,256,12,0.2508,0.2422,0.0268,256
+needle,d=1024,8192,ok,,17.73,0.0608,0.25,1024,12,0.2445,0.1992,0.025,256
+needle,d=4096,8192,ok,,17.73,0.0608,0.25,4096,12,0.2548,0.2461,0.0269,256
+needle,d=16384,8192,SKIP: data unavailable,distance 16384 does not fit ctx=8192,17.73,0.0608,,,,,,,
+needle,d=65536,8192,SKIP: data unavailable,distance 65536 does not fit ctx=8192,17.73,0.0608,,,,,,,
+needle,d=262144,8192,SKIP: data unavailable,distance 262144 does not fit ctx=8192,17.73,0.0608,,,,,,,
+needle,d=1048576,8192,SKIP: data unavailable,distance 1048576 does not fit ctx=8192,17.73,0.0608,,,,,,,
+needle,d=64,16384,ok,,35.13,0.08,0.25,64,12,0.254,0.25,0.0271,256
+needle,d=256,16384,ok,,35.13,0.08,0.25,256,12,0.2552,0.293,0.0284,256
+needle,d=1024,16384,ok,,35.13,0.08,0.25,1024,12,0.252,0.2305,0.0263,256
+needle,d=4096,16384,ok,,35.13,0.08,0.25,4096,12,0.2456,0.2305,0.0263,256
+needle,d=16384,16384,SKIP: data unavailable,distance 16384 does not fit ctx=16384,35.13,0.08,,,,,,,
+needle,d=65536,16384,SKIP: data unavailable,distance 65536 does not fit ctx=16384,35.13,0.08,,,,,,,
+needle,d=262144,16384,SKIP: data unavailable,distance 262144 does not fit ctx=16384,35.13,0.08,,,,,,,
+needle,d=1048576,16384,SKIP: data unavailable,distance 1048576 does not fit ctx=16384,35.13,0.08,,,,,,,

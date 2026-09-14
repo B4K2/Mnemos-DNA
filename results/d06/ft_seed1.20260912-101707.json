@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "model_id": "d06",
+    "run_name": "d06-kda-kmer-fastweight-nope-2m",
+    "checkpoint": "results/d06/step_34178.pt",
+    "checkpoint_step": 34178,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 131072,
+    "lengths": [
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144,
+      524288,
+      1048576
+    ],
+    "benchmarks": [
+      "genomic_benchmarks",
+      "nt"
+    ],
+    "downstream_mode": "finetune",
+    "lm_eval_tokens": 4000000,
+    "needle_trials": 128,
+    "seed": 1,
+    "offload": false,
+    "wall_time_s": 2.5,
+    "interrupted": true,
+    "total_params": 2318544,
+    "non_embedding_params": 2317520,
+    "vocab_size": 8
+  },
+  "rows": []
+}

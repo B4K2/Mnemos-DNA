@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "model_id": "d01",
+    "run_name": "d01-kda-nope",
+    "checkpoint": null,
+    "checkpoint_step": null,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 65536,
+    "lengths": [
+      8192
+    ],
+    "benchmarks": [
+      "needle"
+    ],
+    "wall_time_s": 5.4,
+    "total_params": 120607776,
+    "non_embedding_params": 120601632,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "needle",
+      "task": "needle",
+      "ctx": 8192,
+      "status": "SKIP: OOM",
+      "metrics": {},
+      "note": "OutOfMemoryError",
+      "seconds": 5.025952577590942,
+      "peak_mem_gb": 2.246493184
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+<title>Nucleotides at Two Timescales</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#FBFAF7; --frame:#EDEAE2; --ink:#1C1B18; --muted:#6B6A64; --rule:#E4E2DB;
+    --accent:#B4470F; --d06:#2a78d6; --d07:#eb6834; --code-bg:#F2F0E9;
+    --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans:"IBM Plex Sans", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  html{color-scheme:light}
+  body{background:var(--frame); color:var(--ink); font-family:var(--serif); margin:0;
+       font-size:16.5px; line-height:1.62;}
+  .sheet{max-width:52rem; margin:2.5rem auto; background:var(--paper); padding:4rem 4.5rem 5rem;
+         box-shadow:0 1px 3px rgba(28,27,24,.12), 0 8px 30px rgba(28,27,24,.08);}
+  @media (max-width:60rem){ .sheet{margin:0; padding:2rem 1.25rem 3rem;} }
+  header{text-align:center; margin-bottom:2.6rem;}
+  h1{font-size:1.85rem; font-weight:700; line-height:1.25; margin:0 0 .4rem; text-wrap:balance;}
+  .subtitle{font-size:1.08rem; color:var(--muted); font-style:italic; margin:0 0 1.4rem;}
+  .byline{font-family:var(--sans); font-size:.86rem; color:var(--ink);}
+  .byline .aff{color:var(--muted);}
+  .draftmark{display:inline-block; font-family:var(--sans); font-size:.72rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--accent); border:1px solid currentColor; border-radius:2px;
+    padding:.15rem .55rem; margin-top:1rem;}
+  h2{font-size:1.22rem; font-weight:700; margin:2.6rem 0 .8rem; text-wrap:balance;}
+  h2 .no, h3 .no{color:var(--accent); font-weight:600; margin-right:.55rem; font-variant-numeric:tabular-nums;}
+  h3{font-size:1.02rem; font-weight:600; margin:1.8rem 0 .5rem;}
+  p{margin:0 0 1rem;}
+  .abstract{border-top:2px solid var(--ink); border-bottom:1px solid var(--rule);
+    padding:1.3rem 2.2rem 1.1rem; margin:0 0 1rem; font-size:.95rem; line-height:1.6;}
+  .abstract .lbl{font-family:var(--sans); font-weight:600; font-size:.78rem; letter-spacing:.09em;
+    text-transform:uppercase; display:block; margin-bottom:.5rem;}
+  code, .mono{font-family:var(--mono); font-size:.84em; background:var(--code-bg);
+    padding:.08em .3em; border-radius:2px;}
+  figure{margin:2rem 0; }
+  figure svg{max-width:100%; height:auto; display:block; margin:0 auto;}
+  figcaption{font-family:var(--sans); font-size:.83rem; color:var(--muted); line-height:1.5;
+    margin-top:.7rem; padding:0 .5rem;}
+  figcaption b{color:var(--ink);}
+  .figwrap{overflow-x:auto;}
+  table{border-collapse:collapse; font-family:var(--sans); font-size:.84rem; margin:0 auto;
+    font-variant-numeric:tabular-nums;}
+  .tablewrap{overflow-x:auto; margin:1.6rem 0;}
+  th{font-weight:600; text-align:left; border-bottom:1.5px solid var(--ink); padding:.35rem .7rem;}
+  td{border-bottom:1px solid var(--rule); padding:.32rem .7rem;}
+  td.n, th.n{text-align:right;}
+  .best{font-weight:600; color:var(--accent);}
+  .tnote{font-family:var(--sans); font-size:.78rem; color:var(--muted); max-width:44rem; margin:.5rem auto 0;}
+  ul,ol{margin:0 0 1rem; padding-left:1.4rem;}
+  li{margin-bottom:.35rem;}
+  a{color:var(--accent);}
+  .refs{font-size:.9rem; line-height:1.55;}
+  .refs li{margin-bottom:.55rem;}
+  em.term{font-style:italic;}
+  .callout{background:var(--code-bg); border-left:3px solid var(--accent); padding:.8rem 1.1rem;
+    font-size:.93rem; margin:1.2rem 0;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+</style>
+
+<div class="sheet">
+<header>
+  <h1>Nucleotides at Two Timescales: Gated Delta-Rule Linear Attention with k-mer Fast-Weight Memory for DNA Sequence Modeling</h1>
+  <p class="subtitle">A matched-budget ablation of KDA hybrids on the human genome, on a single 8&nbsp;GB consumer GPU</p>
+  <p class="byline">Akshat</p>
+  <span class="draftmark">Preprint · checkpoints at ≈90% of the 5B-token budget · September 2026</span>
+</header>
+
+<div class="abstract">
+<span class="lbl">Abstract</span>
+Gated delta-rule linear attention (Kimi Delta Attention, KDA) has been validated on natural language but, to our knowledge, never on genomic sequence modeling, where the dominant long-context architectures are implicit convolutions (HyenaDNA) and selective state-space models (Caduceus). We pretrain a family of ~2.3M-parameter character-level KDA models on the human reference genome (GRCh38 [10]) at a 131,072&nbsp;bp training context on a single RTX&nbsp;5060 (8&nbsp;GB), and ablate two additions one axis at a time: a per-k-mer <em>fast-weight memory</em> that attacks the finite-state recall bound of delta-rule recurrences (D06), and a single windowed local-attention layer plus a sequence-length curriculum (D07). Pure KDA shows no measurable long-range exact recall (copy advantage ≈ 0 beyond 64&nbsp;bp); the k-mer fast-weight memory recovers strong recall out to 64&nbsp;kbp (Δ-CE 0.62 nats at distance 65,536). Both arms hold language-model loss essentially flat from 8&nbsp;K to 1&nbsp;M&nbsp;bp of context and run 1&nbsp;Mbp inference in 5.6&nbsp;GB, whereas released HyenaDNA-1M and Caduceus checkpoints, evaluated through the same harness, OOM at 64&nbsp;kbp on the same card. On fine-tuned downstream tasks the local window + curriculum arm transforms position-sensitive short-sequence tasks — Nucleotide Transformer splice-site accuracy rises from 0.618 to 0.922 — while <em>degrading</em> epigenetic-mark classification (GUE mean −5.3 points), evidence that a fixed ultra-long pretraining length tunes the recurrence's timescales away from sub-kilobase grammar and that the fix is a trade-off, not a free lunch. All comparisons are matched-tokenizer, matched-data, and labelled where pretraining budgets differ; we report negative and mixed results as found.
+</div>
+
+<h2><span class="no">1</span>Introduction</h2>
+<p>DNA foundation models face a context problem that language models do not: regulatory interactions span hundreds of kilobases, yet single-nucleotide resolution matters, so a sequence of interest is routinely 10<sup>5</sup>–10<sup>6</sup> tokens long. The two families that dominate this regime — HyenaDNA's implicit long convolutions [3] and the Mamba-based Caduceus [4] — both replace quadratic attention with an O(N·log&nbsp;N) or O(N) mixer. A third family, <em class="term">gated delta-rule linear attention</em> (Gated DeltaNet [2], Kimi Delta Attention [1]), has strong natural-language results but no published genomic evaluation. Its defining weakness is also its most interesting property for genomics: the recurrent state is a fixed d×d matrix, so exact recall of a distant motif is information-theoretically bounded, and prior work formalizes this recall–capacity trade-off [9]. Genomes, full of near-exact repeats whose <em>differences</em> are the signal, should be a stress test for exactly this bound.</p>
+<p>This paper asks three questions on strictly consumer hardware (one RTX&nbsp;5060 laptop GPU, 8&nbsp;GB VRAM): (i)&nbsp;is KDA a viable base operator for a character-level DNA model at 131&nbsp;kbp training context; (ii)&nbsp;where does its finite-state recall bound show up on genomic tasks, and can it be repaired within an O(N) budget; (iii)&nbsp;what does an ultra-long fixed pretraining context do to sub-kilobase downstream tasks. Contributions:</p>
+<ul>
+<li><b>D06 — k-mer fast-weight memory.</b> A KDA backbone in which every layer also owns a content-addressed memory: each 8-mer address stores a 16×16 fast-weight matrix updated by a gated delta rule. This converts the recall probe from a flat zero (pure KDA) to 0.62–0.87 nats of copy advantage at distances of 64&nbsp;bp–64&nbsp;kbp, while remaining O(N) and exact under chunked low-memory inference.</li>
+<li><b>D07 — a short-grammar patch.</b> D06 plus one windowed local-attention layer (w=256) and a 1&nbsp;K→131&nbsp;K sequence-length curriculum. It raises fine-tuned accuracy on 13 of 14 Genomic Benchmarks / Nucleotide Transformer tasks (splice sites +30.4 points) but costs a mean 5.3 points on the 31-task GUE suite — a documented trade-off between short-range grammar and the epigenetic-mark tasks the fixed-length parent was better at.</li>
+<li><b>A same-harness efficiency comparison.</b> Released HyenaDNA and Caduceus checkpoints are run through our identical evaluation harness (same hg38 windows, seeds, probes, bootstrap). Our arms sustain 1&nbsp;Mbp single-sequence inference in 5.6&nbsp;GB; the baselines OOM at 64&nbsp;kbp (Caduceus-PS at 32&nbsp;kbp) on the same card. Pretraining budgets differ and every such table says so.</li>
+</ul>
+<p>Everything here is a matched-compute small-scale study in the spirit of mechanistic ablations, not a claim to beat HyenaDNA at its published scale. Models are ~2.3M parameters; checkpoints analysed are at ≈90% of the 5B-token schedule (§5).</p>
+
+<h2><span class="no">2</span>Background</h2>
+<p><b>Kimi Delta Attention.</b> KDA [1] is a linear-attention recurrence with a channel-wise forget gate, per-head write strength β, ℓ2-normalized queries/keys, and a short causal convolution on q/k/v. The layer maintains a d<sub>k</sub>×d<sub>v</sub> state S<sub>t</sub> updated by a gated delta rule — an outer-product write that first subtracts what the key currently retrieves, then writes the new value — giving it error-correcting (fast-weight-programmer [8, 9]) semantics at O(N) time and O(1) state per head.</p>
+<p><b>The recall bound.</b> Because S<sub>t</sub> has fixed size, the number of (key,&nbsp;value) associations recoverable exactly is bounded; past that, writes interfere. In language this shows up on synthetic multi-query associative recall (MQAR) [9]; in DNA we operationalize it as a repeat-copy probe on real hg38 background (§6.2).</p>
+<p><b>Baselines.</b> HyenaDNA [3] pretrains character-level implicit-convolution models up to 1&nbsp;M context on hg38; Caduceus [4] is a bidirectional, reverse-complement-equivariant Mamba MLM at 131&nbsp;K context. We compare against their <em>released</em> checkpoints through our harness (§5), never re-implementations.</p>
+
+<h2><span class="no">3</span>Hypotheses</h2>
+<p>Following pre-registration practice, the following hypotheses were stated in the study plan before the D06/D07 comparison was run, so that outcomes cannot be reframed after the fact. Each is written as a falsifiable prediction; §6 reports the test for each, and Table&nbsp;4 (§7) gives the verdicts.</p>
+<ul>
+<li><b>H1 (efficiency; high prior confidence).</b> Linear-complexity KDA arms will process strictly longer sequences than the convolutional and SSM baselines under a fixed 8&nbsp;GB VRAM ceiling, with peak memory growing linearly in sequence length. <em>Falsifier:</em> any baseline matching or exceeding the KDA arms' maximum feasible context on the same card. <em>Test:</em> §6.3.</li>
+<li><b>H2 (recall bound).</b> Pure KDA's exact-recall accuracy will degrade past a distance threshold set by its finite d×d state capacity; the k-mer fast-weight memory, which factors exact 8-mer recall out of that state, will hold up at longer range; a windowed local layer will add exact recall only inside its ~256–511&nbsp;bp span. <em>Falsifier:</em> pure KDA matching the memory-augmented arms at long range, or the memory arms degrading identically to pure KDA. <em>Test:</em> §6.2.</li>
+<li><b>H3 (language-model loss; no prior stated).</b> Pretraining perplexity across arms was pre-registered as genuinely uncertain, with no directional expectation. <em>Test:</em> §6.1.</li>
+<li><b>H4 (downstream capability; no prior stated, dissociation expected).</b> Downstream fine-tuned accuracy was pre-registered as uncertain, with the explicit caution that perplexity may not predict it. The D07-specific sub-hypothesis, formed after D06's splice-site failure and before D07 was trained: a local-attention window plus a length curriculum will repair sub-kilobase position-sensitive tasks that fixed-131&nbsp;K pretraining damaged. <em>Falsifier:</em> D07 failing to close the gap to the random-init control on splice sites. <em>Test:</em> §6.5.</li>
+</ul>
+
+<h2><span class="no">4</span>Architecture</h2>
+
+<figure>
+{{FIG_ARCH}}
+<figcaption><b>Figure 1 — The D06/D07 stack and the per-layer k-mer fast-weight memory.</b> Left: eight pre-norm transformer blocks, d<sub>model</sub>=128, no positional encoding; every block's mixer is KDA plus the k-mer memory. In D07 only, block 4's mixer is replaced by blocked causal local attention (window 256, effective span 256–511&nbsp;bp). Right: the memory path inside each mixer — the last 8 nucleotides address a table slot holding a 16×16 fast-weight matrix; a gated delta rule writes through W<sub>k</sub>/W<sub>v</sub> projections, and a gated read is added to the KDA output before o_proj. The table is reset per sequence and carried exactly across chunks at inference.</figcaption>
+</figure>
+
+<h3>4.1 D06: KDA + per-k-mer fast-weight memory</h3>
+<p>The backbone is 8 layers, d<sub>model</sub>=128, 4 heads, vocabulary of 8 (A/C/G/T/N + specials), no positional encoding (NoPE), 2.32M parameters. Alongside each layer's KDA mixer sits a content-addressed memory keyed by the exact identity of the last k=8 nucleotides — 4<sup>8</sup>=65,536 possible addresses. Each address stores not a vector but a small delta-rule fast-weight matrix (d<sub>k</sub>=d<sub>v</sub>=16): when position t's 8-mer address is a, the layer writes (k<sub>t</sub>,&nbsp;v<sub>t</sub>) projections of the hidden state into slot a's matrix with a learned write gate (bias init 0.0, i.e. σ=0.5), and reads slot a's matrix with the current key under a learned read gate (bias init −1.0, σ≈0.27), adding the result to the mixer output pre-<code>o_proj</code>. Two properties matter:</p>
+<ul>
+<li><b>It targets the recall bound directly.</b> Recall of "what followed this exact 8-mer last time" no longer competes for the KDA state's fixed capacity: the address space factors it out, and the delta rule inside each slot handles collisions of repeated 8-mers.</li>
+<li><b>It stays O(N) and chunk-exact.</b> The full table (≈0.6&nbsp;GB per training sequence) is never materialized during the training forward — only chained per-chunk carries are computed — and chunked inference carries the table across chunks bitwise-exactly, which is what makes the 1&nbsp;Mbp low-memory evaluation path legitimate (§6.3).</li>
+</ul>
+<p>Two training details were load-bearing rather than incidental: gate parameters are kept in fp32 (scalar gates freeze in bf16), and the read/write gate initializations above came from a bias sweep after an early bug zeroed the write gate.</p>
+
+<h3>4.2 D07: one local-attention layer + a sequence-length curriculum</h3>
+<p>D07 is D06 with two additions, each motivated by a specific observed failure (§7): a <em>random-init</em> D06 fine-tuned with a locus-aware head reached 0.86 on NT splice-sites while the 4.5B-token 131&nbsp;K-context checkpoint reached 0.82 — pretraining at a fixed 131&nbsp;K length had tuned the recurrence's timescales <em>away</em> from 300–600&nbsp;bp grammar.</p>
+<ul>
+<li><b>Local window.</b> Block 4's mixer becomes blocked causal local attention with window 256 (effective causal span 256–511&nbsp;bp): exact token-level recall inside the window regardless of learned timescales. Window 256 rather than 512 was chosen so that a 300–600&nbsp;bp task sequence is not resolvable in a single exact hop.</li>
+<li><b>Length curriculum.</b> Training length warms up 1&nbsp;K→131&nbsp;K over the first 10% of steps, then draws per-step lengths from a fixed mix {1&nbsp;K:&nbsp;0.25, 16&nbsp;K:&nbsp;0.25, 131&nbsp;K:&nbsp;0.5}. Tokens per step are unchanged (131,072), so the token budget and LR schedule are identical to D06. A loss-driven length controller was considered and rejected: bang-bang switching oscillates and is not reproducible across arms; the fixed mix keeps both regimes in the loss by construction, monitored by <code>val_loss</code> (131&nbsp;K) and <code>val_loss_short</code> (1&nbsp;K).</li>
+</ul>
+<p>Micro-batching is capped by tokens in flight, not sequences (4×32,768 peaks at 6.17&nbsp;GiB where 1×131,072 peaks at 4.35&nbsp;GiB), which is what lets the curriculum train on the 8&nbsp;GB card. D07 is 2.29M parameters.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Arm</th><th>Mixer</th><th class="n">Params</th><th>Pos.</th><th class="n">Train ctx</th><th>Extras</th></tr>
+<tr><td><b>D04</b></td><td>pure KDA</td><td class="n">2.25M</td><td>NTK-RoPE</td><td class="n">65,536</td><td>—</td></tr>
+<tr><td><b>D06</b></td><td>KDA + k-mer fast-weight memory</td><td class="n">2.32M</td><td>none</td><td class="n">131,072</td><td>—</td></tr>
+<tr><td><b>D07</b></td><td>D06, block 4 → local attn (w=256)</td><td class="n">2.29M</td><td>none</td><td class="n">131,072</td><td>length curriculum</td></tr>
+</table>
+<p class="tnote">Table 1 — the arms analysed in this paper. Earlier ablation arms (D01–D05: pure KDA, windowed hybrids, KATA, evicted-KV cache, vector-valued k-mer memory) established the design and are referenced where relevant; D04 serves here as the pure-KDA recall control.</p></div>
+
+<h2><span class="no">5</span>Experimental setup</h2>
+<p><b>Pretraining.</b> Human reference genome GRCh38/hg38 [10], single-nucleotide tokenization (vocab 8), HyenaDNA's held-out-chromosome split, causal next-nucleotide objective. Budget 5B tokens (38,147 steps × 131,072 tokens), AdamW, lr 10<sup>−3</sup> cosine to 0.1×, warmup 200 steps, bf16 with gradient checkpointing, batch 1×131,072 tokens/step. Hardware: one NVIDIA RTX&nbsp;5060 Laptop GPU (8&nbsp;GB, Blackwell). <b>The checkpoints analysed are at step 34,177 (D06) and 33,900 (D07) — 89–90% of the schedule</b>; training of the final 10% was still running when this draft was written, and all numbers below are from these ≈90% checkpoints.</p>
+<p><b>Evaluation harness.</b> Every number comes from one suite (<code>scripts/benchmark.py</code>): per-(benchmark,&nbsp;context) reseeding of numpy+torch, a 4M-token floor for LM evaluation per context, 128 trials per needle point, and a percentile bootstrap (n=1000) on every test-set metric, resampling per prediction (classification), per window (LM), or per trial (needle) — split-sampling uncertainty only, not seed variance. Downstream tasks run in two modes: a frozen-backbone linear probe (lower bound) and full fine-tuning (protocol family of HyenaDNA/NT/DNABERT-2; effective batch 32, up to 6 epochs / 6,000 steps, best-dev-epoch selection, a <code>[mean&nbsp;|&nbsp;last&nbsp;|&nbsp;8 positional bins]</code> head pooled over forward and reverse-complement passes). External baselines — <code>hyenadna-large-1m</code>, <code>hyenadna-medium-450k</code>, <code>caduceus-ph/ps 131k</code> — run through the same harness with vocabulary remapped losslessly; their pretraining budgets are far larger than ours, and every table containing them is labelled accordingly. Caduceus is a bidirectional MLM, so causal LM/needle metrics are skipped for it by design. The chunked low-memory path (<code>--offload</code>) is used only for our KDA arms, where it is verified bitwise-exact; the baselines' OOM ceilings are real measurements, not artifacts of a missing offload path.</p>
+
+<h2><span class="no">6</span>Results</h2>
+
+<h3>6.1 Pretraining (tests H3): matched loss, flat across three orders of magnitude of context</h3>
+<figure><div class="figwrap">{{FIG_CURVES}}</div>
+<figcaption><b>Figure 2 — Validation loss.</b> D06 and D07 track each other closely at the shared 131&nbsp;K evaluation length (final 1.029 vs 1.045 nats/base); D07 additionally holds a 1&nbsp;K-context validation loss within 0.03 nats of its long-context loss, the curriculum's explicit target. Curves start after LR warmup.</figcaption></figure>
+<p>At the ≈90% checkpoints, held-out cross-entropy is 1.065 (D06) and 1.067 (D07) nats/base at 131&nbsp;K context — 1.54 bits/bp, perplexity 2.90 over the 4-letter alphabet — and stays within ±0.03 nats from 8&nbsp;K to 1&nbsp;M&nbsp;bp of evaluation context for both arms. The local window and curriculum are loss-neutral at long range: whatever they change (§6.5), it is not next-nucleotide modeling of megabase windows.</p>
+
+<h3>6.2 The recall bound (tests H2) is real, and the k-mer memory removes most of it</h3>
+<figure><div class="figwrap">{{FIG_NEEDLE}}</div>
+<figcaption><b>Figure 3 — Long-range exact recall (context 131,072).</b> A 256&nbsp;bp segment of real hg38 sequence is planted, the model must lower its loss when the segment repeats a distance d later; the y-axis is the paired per-trial CE reduction versus a control (128 trials/point). Pure KDA (D04) is indistinguishable from zero beyond 64&nbsp;bp — the finite-state bound in its rawest form. The k-mer fast-weight arms hold 0.53–0.87 nats of advantage out to 64&nbsp;kbp, decaying smoothly with distance.</figcaption></figure>
+<p>This is the mechanistic centerpiece for H2 and it resolves cleanly. H2 predicted that pure KDA would degrade past a capacity threshold: in practice there is no threshold to find — D04's copy advantage is ≈0.01 nats at distance 64 and zero beyond, i.e. pure KDA never performs measurable exact recall at any distance on genomic background. The fast-weight memory (D06) recovers 0.87 nats at short range, still 0.62 at 64&nbsp;kbp. D07 sits slightly below D06 at long distances (0.53 at 64&nbsp;kbp) — its local window contributes exact recall only inside ~500&nbsp;bp, and the curriculum's short-sequence steps plausibly de-emphasize ultra-long carry — but the two arms are qualitatively identical. An interesting negative within the positive: the decay from 0.85 to 0.53 nats between 4&nbsp;K and 64&nbsp;K is interference inside slot-level fast weights, not address exhaustion, since address collisions are distance-independent.</p>
+
+<h3>6.3 Efficiency (tests H1): megabase inference on 8 GB</h3>
+<figure><div class="figwrap">{{FIG_SCALING}}</div>
+<figcaption><b>Figure 4 — Peak VRAM versus sequence length (batch 1, bf16).</b> D06/D07 inference is linear and reaches 1&nbsp;Mbp at 5.6&nbsp;GB; a full training step fits through 256&nbsp;K. Vertical dashed lines mark where the released HyenaDNA-1M and Caduceus-PH checkpoints OOM in the same harness on the same card (their pretraining used far larger hardware; the ceiling shown is what an 8&nbsp;GB consumer deployment of those checkpoints gets). Prefill throughput for D06/D07 is 290–350&nbsp;K tok/s across the sweep.</figcaption></figure>
+<p>H1 was the high-confidence pre-registration and it holds with a caveat worth stating: the k-mer table makes our arms <em>less</em> memory-light than pure KDA (D04 runs a 1&nbsp;Mbp forward in 6.3&nbsp;GB without offload; D06/D07 need the chunk-exact offload path above 512&nbsp;K to keep the needle sweep alive). Still, on the metric that matters for consumer deployment — the longest single sequence processable at all — our arms reach 1&nbsp;Mbp where HyenaDNA-1M reaches 32&nbsp;K (OOM at 64&nbsp;K) and Caduceus-PS 16&nbsp;K (OOM at 32&nbsp;K).</p>
+
+<h3>6.4 Frozen-probe biology: long inputs help until they don't</h3>
+<figure><div class="figwrap">{{FIG_SPECIES}}</div>
+<figcaption><b>Figure 5 — Species classification versus input length</b> (frozen linear probe, 5-way: human/mouse/zebrafish/fly/worm; shaded bands are 95% bootstrap CIs; ×&nbsp;marks the last length before OOM). All models saturate near 0.99 by 16&nbsp;K; the differentiator is how far each can go — D06 reaches 256&nbsp;K windows at 0.997, the external checkpoints stop at 16–32&nbsp;K. External baselines have much larger pretraining budgets.</figcaption></figure>
+<div class="tablewrap"><table>
+<tr><th>Task (probe, 8&nbsp;K windows)</th><th class="n">D06</th><th class="n">D07</th><th class="n">D02</th><th class="n">HyenaDNA-1M</th><th class="n">Caduceus-PH</th><th class="n">Caduceus-PS</th></tr>
+<tr><td>GLRB VEP eQTL (acc)</td><td class="n best">0.672</td><td class="n">0.625</td><td class="n">0.664</td><td class="n">0.586</td><td class="n">0.586</td><td class="n best">0.672</td></tr>
+<tr><td>GLRB enhancer (acc)</td><td class="n">0.608</td><td class="n">0.648</td><td class="n best">0.664</td><td class="n">0.592</td><td class="n">0.624</td><td class="n">0.632</td></tr>
+<tr><td>GLRB promoter (acc)</td><td class="n">0.942</td><td class="n">0.942</td><td class="n best">0.950</td><td class="n">0.934</td><td class="n">0.934</td><td class="n">0.934</td></tr>
+<tr><td>GLRB chromatin (mean acc)</td><td class="n">0.931</td><td class="n">0.937</td><td class="n">0.929</td><td class="n">0.933</td><td class="n">0.937</td><td class="n best">0.938</td></tr>
+</table>
+<p class="tnote">Table 2 — Genomics Long-Range Benchmark, frozen-backbone linear probes at 8&nbsp;K context, same harness for every column. A probe is a lower bound on all models equally. External checkpoints (right three columns) were pretrained with orders-of-magnitude more compute than ours; typical 95% CIs span ±0.07 on eQTL/enhancer, so most differences here are individually indistinguishable — the honest summary is parity, achieved at ~2.3M parameters and one consumer GPU of pretraining.</p></div>
+<p>Longer inputs help on species identity (monotone to 256&nbsp;K) but <em>hurt</em> on GLRB variant-effect prediction, where every model degrades from 8&nbsp;K to 32&nbsp;K windows (D06: 0.672→0.578) — diluting a SNP-centered signal with context is not free. "More context" is a per-task question, and the harness answers it per task rather than assuming the long-context story is uniformly positive.</p>
+
+<h3>6.5 Fine-tuned downstream (tests H4): the trade D07 makes</h3>
+<figure><div class="figwrap">{{FIG_DOWNSTREAM}}</div>
+<figcaption><b>Figure 6 — Full fine-tuning, D06 → D07</b>, Genomic Benchmarks (8 tasks) and the 6-task Nucleotide Transformer subset. D07 improves 13 of 14 tasks; the splice-site tasks move +30.4 and +13.5 points (n<sub>test</sub>=3,000 each, so the gaps are far outside bootstrap noise).</figcaption></figure>
+<figure><div class="figwrap">{{FIG_GUE}}</div>
+<figcaption><b>Figure 7 — The other side of the ledger:</b> per-task accuracy change on the 31-task GUE suite. Orange bars (D07 better) are concentrated in mouse TF-binding and promoter tasks; blue (D06 better) dominates the ten <code>emp_*</code> yeast epigenetic-mark tasks (−4 to −14 points) and <code>virus_covid</code> collapses outright (0.657→0.177, a 9-class task where D07 fine-tuning failed to converge under the fixed budget).</figcaption></figure>
+<div class="tablewrap"><table>
+<tr><th>Suite (fine-tune, mean acc)</th><th class="n">#tasks</th><th class="n">D06</th><th class="n">D07</th><th class="n">Δ</th></tr>
+<tr><td>Genomic Benchmarks</td><td class="n">8</td><td class="n">0.862</td><td class="n best">0.877</td><td class="n">+1.6</td></tr>
+<tr><td>Nucleotide Transformer subset</td><td class="n">6</td><td class="n">0.786</td><td class="n best">0.861</td><td class="n">+7.5</td></tr>
+<tr><td>GUE (DNABERT-2)</td><td class="n">31</td><td class="n best">0.802</td><td class="n">0.749</td><td class="n">−5.3</td></tr>
+</table>
+<p class="tnote">Table 3 — suite-level means. GUE data is the <code>leannmlindsey/GUE</code> HuggingFace community mirror of the DNABERT-2 release (the official Google-Drive distribution cannot be fetched non-interactively).</p></div>
+<p>The headline result of the project sits here. D06's worst downstream failure — splice sites, where its 0.618 fine-tuned accuracy fell <em>below a randomly-initialized copy of itself</em> (0.86) — was direct evidence that 131&nbsp;K-only pretraining damages sub-kilobase positional grammar rather than merely not helping it. D07's window-plus-curriculum repairs exactly that class of task: splice donors 0.951, splice all 0.922, now well above the random-init control, plus consistent gains on enhancer/OCR/regulatory-element classification. But the repair is paid for on GUE's epigenetic-mark tasks, which are dominated by soft compositional signals over 500&nbsp;bp; one plausible reading is that block 4's exact local recall displaces mixer capacity these tasks were using, and the curriculum's short-sequence gradient steps re-tune timescales that the <code>emp_*</code> tasks preferred long. Perplexity predicted none of this — the two arms are 0.002 nats apart (§6.1) and 5–30 points apart per task in both directions, this domain's restatement of "perplexity is not capability."</p>
+
+<h2><span class="no">7</span>Discussion and limitations</h2>
+<div class="tablewrap"><table>
+<tr><th>Hypothesis (§3)</th><th>Pre-registered prediction</th><th>Verdict</th><th>Evidence</th></tr>
+<tr><td><b>H1</b> efficiency</td><td>KDA arms exceed baselines' max context on 8&nbsp;GB</td><td class="best">Supported</td><td>1&nbsp;Mbp vs 32&nbsp;K/16&nbsp;K before OOM (Fig.&nbsp;4, Fig.&nbsp;5)</td></tr>
+<tr><td><b>H2</b> recall bound</td><td>Pure KDA degrades past a distance threshold; memory arms hold longer</td><td>Supported, stronger than predicted</td><td>Pure KDA has <em>no</em> recall at any distance; memory arms hold to 64&nbsp;kbp (Fig.&nbsp;3)</td></tr>
+<tr><td><b>H3</b> LM loss</td><td>No direction stated</td><td>Parity</td><td>D06/D07 within 0.002 nats; flat 8&nbsp;K–1&nbsp;M (Fig.&nbsp;2)</td></tr>
+<tr><td><b>H4</b> downstream</td><td>Perplexity–capability dissociation; window+curriculum repairs sub-kb tasks</td><td>Supported, with an unpredicted cost</td><td>Splice +30.4 pts, above random-init control; GUE −5.3 mean (Figs.&nbsp;6–7)</td></tr>
+</table>
+<p class="tnote">Table 4 — verdicts on the pre-registered hypotheses. "Supported" means the falsifier stated in §3 did not occur; H4's GUE regression was not predicted in either direction and is reported as a discovered trade-off, not a confirmation.</p></div>
+<ul>
+<li><b>The composite is not yet decomposed.</b> D07 changes two things over D06. The single-axis controls exist as configs (<code>d06_curriculum.yaml</code>: curriculum without window; D06 itself: neither) but the curriculum-only control was untrained at this draft's checkpoint; attributing the splice-site gain between window and curriculum — and the GUE loss likewise — is the single most important pending run.</li>
+<li><b>≈90% checkpoints, one seed.</b> Numbers are from step ~34&nbsp;K of 38,147, single seed, single data order. Loss curves are flat enough that the last 10% is unlikely to reorder arms, but final-checkpoint numbers will replace these; bootstrap CIs cover split-sampling uncertainty only.</li>
+<li><b>Capacity ceiling.</b> At d<sub>model</sub>=128, NT <code>promoter_all</code> is pinned at ~0.85–0.87 under every head, learning rate, and initialization tried (GC content alone yields 0.81) — a model-capacity ceiling, reported as such. The ~2.3M-parameter scale (chosen for training throughput on the 8&nbsp;GB card, well below the 100M originally envisioned) bounds every accuracy claim.</li>
+<li><b>Comparisons with released baselines are efficiency comparisons.</b> HyenaDNA/Caduceus columns share our harness but not our pretraining budget; where they match or beat us the reading is unremarkable, where we match them at 2.3M parameters the reading is efficiency, and their OOM ceilings describe 8&nbsp;GB deployment of those checkpoints, not the methods at their native scale.</li>
+<li><b>What we would test next.</b> The curriculum-only control; finishing the last 10% and regenerating all tables; a g/window-size sweep of the local layer; and state-utilization diagnostics (participation ratio of the recurrent state) to localize the 4&nbsp;K→64&nbsp;K recall decay inside slot fast weights.</li>
+</ul>
+
+<h2><span class="no">8</span>Conclusion</h2>
+<p>Gated delta-rule linear attention is a workable base operator for character-level genomic modeling on consumer hardware — but not alone. Pure KDA's finite-state recall bound is not a distant cliff on DNA; it is a wall at distance zero. A content-addressed k-mer fast-weight memory removes most of that wall for ~3% extra parameters while preserving O(N) scaling and megabase-length exact chunked inference on an 8&nbsp;GB GPU, which the released convolutional and SSM checkpoints cannot match on the same card. And the fixed ultra-long pretraining context that makes such models impressive at length makes them <em>worse</em> at sub-kilobase grammar than their own random initialization — a failure a single local-attention layer and a length curriculum repair, at a measurable cost elsewhere. The trade-offs, not the wins, are the finding: recall, context length, and short-range grammar are three different budgets, and an architecture choice that spends one is spending it from somewhere.</p>
+
+<h2><span class="no">9</span>References</h2>
+<ol class="refs">
+<li>Kimi Team. Kimi Linear: An Expressive, Efficient Attention Architecture. <i>arXiv preprint</i> arXiv:2510.26692, 2025.</li>
+<li>Yang, S., Kautz, J., and Hatamizadeh, A. Gated Delta Networks: Improving Mamba2 with Delta Rule. In <i>Proceedings of the 13th International Conference on Learning Representations (ICLR)</i>, 2025. arXiv:2412.06464.</li>
+<li>Nguyen, E., Poli, M., Faizi, M., Thomas, A., Birch-Sykes, C., Wornow, M., Patel, A., Rabideau, C., Massaroli, S., Bengio, Y., Ermon, S., Baccus, S. A., and Ré, C. HyenaDNA: Long-Range Genomic Sequence Modeling at Single Nucleotide Resolution. In <i>Advances in Neural Information Processing Systems 36 (NeurIPS)</i>, 2023. arXiv:2306.15794.</li>
+<li>Schiff, Y., Kao, C.-H., Gokaslan, A., Dao, T., Gu, A., and Kuleshov, V. Caduceus: Bi-Directional Equivariant Long-Range DNA Sequence Modeling. In <i>Proceedings of the 41st International Conference on Machine Learning (ICML)</i>, 2024. arXiv:2403.03234.</li>
+<li>Grešová, K., Martinek, V., Čechák, D., Šimeček, P., and Alexiou, P. Genomic Benchmarks: A Collection of Datasets for Genomic Sequence Classification. <i>BMC Genomic Data</i>, 24(1):25, 2023.</li>
+<li>Dalla-Torre, H., Gonzalez, L., Mendoza-Revilla, J., et al. Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics. <i>Nature Methods</i>, 22:287–297, 2025.</li>
+<li>Zhou, Z., Ji, Y., Li, W., Dutta, P., Davuluri, R., and Liu, H. DNABERT-2: Efficient Foundation Model and Benchmark for Multi-Species Genome. In <i>Proceedings of the 12th International Conference on Learning Representations (ICLR)</i>, 2024. arXiv:2306.15006. GUE tasks obtained via the <code>leannmlindsey/GUE</code> HuggingFace community mirror.</li>
+<li>Schlag, I., Irie, K., and Schmidhuber, J. Linear Transformers Are Secretly Fast Weight Programmers. In <i>Proceedings of the 38th International Conference on Machine Learning (ICML)</i>, 2021. arXiv:2102.11174.</li>
+<li>Arora, S., Eyuboglu, S., Timalsina, A., Johnson, I., Poli, M., Zou, J., Rudra, A., and Ré, C. Zoology: Measuring and Improving Recall in Efficient Language Models. <i>arXiv preprint</i> arXiv:2312.04927, 2023.</li>
+<li>Schneider, V. A., et al. Evaluation of GRCh38 and De Novo Haploid Genome Assemblies Demonstrates the Enduring Quality of the Reference Assembly. <i>Genome Research</i>, 27(5):849–864, 2017.</li>
+</ol>
+</div>
