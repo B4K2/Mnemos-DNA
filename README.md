@@ -5,7 +5,8 @@ language modeling.** ~2.3M-parameter character-level models pretrained on the hu
 (GRCh38, 4.5B tokens, 131,072 bp context) — every experiment trained and evaluated on a single
 8 GB consumer GPU (RTX 5060 Laptop).
 
-Paper: [`paper/main.pdf`](paper/main.pdf)
+Paper: [`paper/main.pdf`](paper/main.pdf) ·
+Pretrained weights: [B4K2xx/Mnemos-DNA on Hugging Face](https://huggingface.co/B4K2xx/Mnemos-DNA)
 
 ## What this is
 
