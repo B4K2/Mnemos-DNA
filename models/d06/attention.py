@@ -21,7 +21,8 @@ class FastWeightKmerAttention(KmerMemAttention):
                                  int(config.get("kmer_fw_dk", 16)), int(config.get("kmer_fw_dv", 16)),
                                  float(config.get("kmer_mem_gate_init", -1.0)),
                                  int(config.get("kmer_mem_scan_chunk", 16)),
-                                 write_gate_init=config.get("kmer_mem_write_gate_init"))
+                                 write_gate_init=config.get("kmer_mem_write_gate_init"),
+                                 n_slots=1 if config.get("kmer_mem_address_mode") == "shared" else None)
             for k in self.ks])
 
     def _apply_memory(self, h, tables, pos_offset, return_table=True):

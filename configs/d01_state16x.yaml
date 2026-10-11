@@ -1,0 +1,30 @@
+# Pure KDA with 16x the recurrent state of configs/d01_new.yaml (d_model^2/num_heads per layer).
+# Review ablation (2026-09-15): does scaling pure KDA's state close the recall gap to D06?
+# Everything except d_model/num_heads matches d01_new (131072 ctx, 5B tokens, schedule).
+model_id: d01_state16x
+run_name: d01-state16x
+model_module: d01
+
+attention_type: kda
+pos_type: none
+
+d_model: 256                              # REVIEW
+num_layers: 8
+num_heads: 1                             # REVIEW: head_dim 256
+
+context_length: 131072    # matched to d06/d07
+batch_size: 1
+grad_accum_steps: 1
+gradient_checkpointing: true
+
+training_tokens: 4_500_000_000   # analysed at 4.5B, as d06/d07 are
+
+lr_schedule: cosine
+learning_rate: 1.0e-3     # small model -> higher peak LR than D01's 3e-4
+warmup_steps: 200
+lr_min_ratio: 0.1
+
+eval_interval_steps: 200
+checkpoint_interval_steps: 100   # matched to d06
+
+# Everything else (weight_decay, dataset_dir, precision, ...) comes from base.yaml.

@@ -91,3 +91,33 @@ def test_model_builds_and_runs_cpu():
     loss.backward()
     assert m.kmer_aux_loss() is None
     assert "read_gate_mean" in m.kmer_metrics()
+
+
+@pytest.mark.parametrize("mode", ["position_hash", "shared"])
+def test_address_controls_build_and_run_cpu(mode):
+    cfg = load_config("configs/d06_kmer_fastweight.yaml")
+    cfg.update(d_model=32, num_layers=2, num_heads=2, kmer_mem_k=3, kmer_fw_dk=4, kmer_fw_dv=4,
+               kda_use_fused_kernel=False, gradient_checkpointing=False,
+               kmer_mem_address_mode=mode, kmer_mem_scan_chunk=16)
+    from models.d06 import build_model
+    m = build_model(cfg)
+    idx = torch.randint(3, 8, (2, 64))
+    logits, loss = m(idx, idx)
+    assert torch.isfinite(loss)
+    loss.backward()
+    assert m._kmer_attns()[0].memories[0].n_slots == (1 if mode == "shared" else 64)
+
+
+def test_address_remap_keeps_noops_and_breaks_content():
+    from models.d05.kmer_memory import remap_addresses
+    idx = torch.tensor([encode("ACGTNACGTACGTACGT" * 40)])
+    a = kmer_addresses(idx, 4)
+    for mode in ("position_hash", "shared"):
+        r = remap_addresses(a, mode, 256)
+        assert torch.equal(r < 0, a < 0)
+        assert int(r.max()) < 256
+    ph = remap_addresses(a, "position_hash", 256)[0]
+    same = (a[0, 17:] == a[0, :-17]) & (a[0, 17:] >= 0)   # the period-17 repeat reuses each k-mer address
+    assert same.any() and (ph[17:][same] != ph[:-17][same]).float().mean() > 0.9
+    with pytest.raises(ValueError):
+        remap_addresses(a, "permuted", 256)

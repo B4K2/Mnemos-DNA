@@ -3,7 +3,7 @@ hands them to every KmerMemAttention before the blocks run (the blocks only see 
 import torch
 
 from models.d05.attention import KmerMemAttention
-from models.d05.kmer_memory import kmer_addresses, shift_write_addresses
+from models.d05.kmer_memory import kmer_addresses, remap_addresses, shift_write_addresses
 from models.shared.gpt import GPT
 
 
@@ -35,6 +35,8 @@ class KmerGPT(GPT):
             for mem in attn.memories:
                 torch.nn.init.constant_(mem.write_gate.bias, mem.write_gate_init)
         self.ks = self._kmer_attns()[0].ks
+        self.address_mode = str(config.get("kmer_mem_address_mode", "kmer"))
+        remap_addresses(torch.zeros(1, 1, dtype=torch.long), self.address_mode, 1)  # validate
         self.balance_coef = float(config.get("kmer_mem_balance_coef", 0.01))
 
     def _kmer_attns(self):
@@ -44,7 +46,7 @@ class KmerGPT(GPT):
         with torch.no_grad():
             addr = {}
             for k in self.ks:
-                r = kmer_addresses(idx, k)
+                r = remap_addresses(kmer_addresses(idx, k), self.address_mode, 4 ** k)
                 addr[k] = (r, shift_write_addresses(r))
         for attn in self._kmer_attns():
             attn.kmer_addr = addr

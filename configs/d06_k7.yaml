@@ -1,0 +1,43 @@
+# D06 with k=7 (4^7 = 16,384 slots).
+# Review ablation (2026-09-15): identical to configs/d06_kmer_fastweight.yaml except the
+# lines marked REVIEW. Same 131072 context, 5B tokens, LR schedule and data order.
+model_id: d06_k7
+run_name: d06-k7
+model_module: d06
+
+
+attention_type: kda_kmer_fw
+pos_type: none
+
+kmer_mem_k: 7                          # REVIEW                 
+kmer_fw_dk: 16                
+kmer_fw_dv: 16                
+kmer_mem_scan_chunk: 32       
+                              
+kmer_mem_gate_init: -1.0      
+kmer_mem_write_gate_init: 0.0 
+                              
+                              
+                
+kmer_mem_layers: all
+kmer_mem_hierarchical_ks: []
+kmer_mem_reset_per_sequence: true
+
+d_model: 128
+num_layers: 8
+num_heads: 4             
+
+context_length: 131072 
+batch_size: 1
+grad_accum_steps: 1
+gradient_checkpointing: true
+
+training_tokens: 4_500_000_000
+
+lr_schedule: cosine
+learning_rate: 1.0e-3
+warmup_steps: 200
+lr_min_ratio: 0.1
+
+eval_interval_steps: 200
+checkpoint_interval_steps: 100  

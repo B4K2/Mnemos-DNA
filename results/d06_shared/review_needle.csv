@@ -1,0 +1,9 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,ce_control,ce_repeat,copy_advantage,copy_advantage_hi,copy_advantage_lo,copy_advantage_mean,distance_bp,mode,mut_identity,n_boot,n_mutations,seg_len,stderr,trials
+needle,d=64,131072,ok,,271.87,5.998,1.1209,1.105,0.0159,0.0202,0.0118,0.0159,64,copy,1.0,1000,0,256,0.0022,128
+needle,d=256,131072,ok,,271.87,5.998,1.1209,1.1146,0.0063,0.0081,0.0047,0.0063,256,copy,1.0,1000,0,256,0.0009,128
+needle,d=1024,131072,ok,,271.87,5.998,1.1453,1.1435,0.0018,0.0023,0.0013,0.0018,1024,copy,1.0,1000,0,256,0.0003,128
+needle,d=4096,131072,ok,,271.87,5.998,1.1411,1.1409,0.0003,0.0004,0.0001,0.0003,4096,copy,1.0,1000,0,256,0.0001,128
+needle,d=16384,131072,ok,,271.87,5.998,1.0987,1.0986,0.0001,0.0002,0.0001,0.0001,16384,copy,1.0,1000,0,256,0.0,128
+needle,d=65536,131072,ok,,271.87,5.998,1.1182,1.1183,-0.0001,-0.0,-0.0002,-0.0001,65536,copy,1.0,1000,0,256,0.0,128
+needle,d=262144,131072,SKIP: data unavailable,distance 262144 does not fit ctx=131072 with seg=256,271.87,5.998,,,,,,,,,,,,,,
+needle,d=1048576,131072,SKIP: data unavailable,distance 1048576 does not fit ctx=131072 with seg=256,271.87,5.998,,,,,,,,,,,,,,

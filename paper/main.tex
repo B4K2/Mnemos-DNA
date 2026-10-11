@@ -44,46 +44,28 @@ with $k$-mer Fast-Weight Memory for Edge-Scale DNA Modeling}
 \url{https://huggingface.co/B4K2xx/Mnemos-DNA}.}\endgroup
 
 \begin{abstract}
-Gated delta-rule linear attention (Kimi Delta Attention, KDA) has been validated on natural
-language but, to our knowledge, never on genomic sequence modeling, where the dominant
-long-context architectures are implicit convolutions (HyenaDNA) and selective state-space models
-(Caduceus). We study it at a deliberately chosen operating point: \textbf{extremely low-parameter,
-edge-scale DNA language models} --- $\sim$2.3M parameters, one 8\,GB consumer GPU, megabase
-context --- a regime that matters on its own terms for deployment on commodity and field hardware,
-and that makes single-axis architectural ablation affordable enough to run to completion. We
-pretrain a family of character-level KDA models on the human reference genome (GRCh38) at a
-131{,}072\,bp training context and ablate two additions: a per-$k$-mer \emph{fast-weight memory}
-that attacks the finite-state recall bound of delta-rule recurrences (\textbf{Mnemos-DNA}; arm ID D06), and a coupled
-prototype adding one windowed local-attention layer together with a sequence-length curriculum
-(\textbf{Mnemos-DNA-C}; arm ID D07). Findings. (i)~\textbf{At this state capacity the recall bound is not a distant cliff but a wall at
-distance zero}: on a repeat-copy probe over real hg38 background, a fully matched pure-KDA
-control (a $32\times32$ per-head state) shows no measurable exact recall at \emph{any} distance
-($\le 0.02$ nats at 64\,bp, zero beyond), and a windowed-local-attention hybrid without the
-memory is indistinguishable from it; the $k$-mer fast-weight memory converts this to
-0.53--0.87 nats of copy advantage sustained to 64\,kbp --- degrading by only $\approx$0.04 nats
-per point substitution planted in the repeat, so the mechanism survives SNP-level divergence ---
-for $\sim$3\% more parameters, a $\approx$2$\times$ prefill-throughput cost, and a 4096$\times$
-larger recurrent inference state, both of which we account for explicitly.
-(ii)~\textbf{The address space is used, but unevenly}: in a 131\,kbp window 63.1\%
-of the $4^8$ slots are ever written against 86.5\% under a uniform-sequence null, with 68.5\% of
-writes colliding and one slot (poly-T) taking 234; we give the delta rule's exact behaviour under
-such repeated writes. (iii)~\textbf{Ultra-long fixed pretraining damages sub-kilobase grammar,
-and neither of our patches repairs it}: under one matched fine-tuning protocol, pretrained
-Mnemos-DNA reaches 0.740 on splice sites where a randomly initialized copy of itself reaches
-0.832, and Mnemos-DNA-C's window-plus-curriculum leaves the gap intact (0.733); the same
-control applied to the released 1M-context HyenaDNA checkpoint shows the same signature
-(pretrained 0.737 vs.\ random-init $0.781\pm0.009$ on splice donors), so the effect is not
-specific to delta-rule architectures.
-(iv)~\textbf{Fine-tuned architecture comparisons are protocol-fragile}: we show that letting the
-pooling head, epoch budget and training-set caps vary between arms --- drift that arises
-naturally in any long-running study --- produces spurious cross-arm effects of up to 30 accuracy
-points, an order of magnitude larger than any true architecture effect we measure; under one
-frozen protocol with 2--3 fine-tuning seeds, the arms differ by $\le$1 point on every suite
-mean. (v)~\textbf{Perplexity is silent on all of it}: the arms sit within 0.01 nats/base of one
-another while the recall probe separates them by 0.6 nats and the random-init control exposes a
-9-point fine-tuning gap. Every comparison to released baseline checkpoints (HyenaDNA, Caduceus
---- $\sim$3$\times$ our parameter count but orders of magnitude more pretraining compute) is
-labelled as a deployment-feasibility comparison of artifacts, not architectures.
+Gated delta-rule linear attention (Kimi Delta Attention, KDA) has strong natural-language results
+but, to our knowledge, no genomic evaluation. We study it at an edge-scale operating point ---
+$\sim$2.3M-parameter character-level models, one 8\,GB consumer GPU, pretraining on GRCh38 at a
+131{,}072\,bp context --- where single-axis ablations are affordable to run to completion, and add
+a per-8-mer \emph{fast-weight memory} (\textbf{Mnemos-DNA}): 65{,}536 content-addressed
+$16\times16$ delta-rule matrices beside each KDA layer.
+(i)~\textbf{Recall.} On a repeat-copy probe over real hg38 background, a fully matched pure-KDA
+control shows no measurable copy advantage beyond 64\,bp; neither do a windowed local-attention
+hybrid, pure KDA with 4$\times$ or 16$\times$ the recurrent state, nor a same-size table indexed by
+position instead of content. The $k$-mer memory yields 0.53--0.87 nats of copy advantage out to
+64\,kbp and retains most of it under the tested 1--3 point substitutions per repeat.
+(ii)~\textbf{Cost.} It adds 2.9\% parameters but a 4096$\times$ larger recurrent inference state
+(128\,KiB $\to$ 512\,MiB) and $\approx$2$\times$ prefill cost: the price of recall is paid in
+state, not parameters.
+(iii)~\textbf{A negative result.} Under one matched fine-tuning protocol, pretrained Mnemos-DNA is
+\emph{worse} than its own random initialization on splice sites (0.740 vs.\ 0.832); a local
+window plus length curriculum (\textbf{Mnemos-DNA-C}) does not repair this, and the released
+1M-context HyenaDNA checkpoint shows the same signature.
+We also show that fine-tuning-protocol drift alone produces spurious cross-arm effects of up to
+30 points, an order of magnitude larger than any architecture effect we measure, while
+perplexity separates the arms by $\le$0.01 nats. Our reading: in long-context DNA modeling,
+exact recall, context length and short-range grammar are separate budgets.
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
@@ -96,8 +78,8 @@ Caduceus~\cite{schiff2024caduceus} --- replace quadratic attention with sub-quad
 third family, \emph{gated delta-rule linear attention} (Gated DeltaNet~\cite{yang2025gated}, Kimi
 Delta Attention~\cite{kimilinear2025}), has strong natural-language results but no published
 genomic evaluation. Its defining weakness is also its most interesting property for genomics: the
-recurrent state is a fixed $d\times d$ matrix, so exact recall of a distant motif is
-information-theoretically bounded, a recall--capacity trade-off formalized in prior
+recurrent state is a fixed $d\times d$ matrix, so how much exact recall of distant motifs it can sustain is
+capacity-limited, a recall--capacity trade-off formalized in prior
 work~\cite{arora2023zoology}. Genomes, full of near-exact repeats whose \emph{differences} carry
 the signal, should be a stress test for exactly this bound.
 
@@ -120,12 +102,14 @@ measures.
 and can it be repaired within an $O(N)$ time budget --- and at what cost in state? (iii)~What does
 an ultra-long fixed pretraining context do to sub-kilobase downstream capability?
 
-\paragraph{Contributions.}
+\paragraph{Contributions.} The primary contribution is the first two items (recall bound, memory,
+and its cost); the splice-site degradation is a secondary finding, and protocol sensitivity a
+methodological one.
 \begin{itemize}
 \item \textbf{Mnemos-DNA, a $k$-mer fast-weight memory} (\S\ref{sec:method-d06}): a content-addressed
 memory in every layer, keyed by the exact last 8-mer, each address holding a $16\times16$
-delta-rule fast-weight matrix~\cite{schlag2021linear}. It removes most of the recall wall while
-staying $O(N)$ in time and bitwise-exact under chunked low-memory inference.
+delta-rule fast-weight matrix~\cite{schlag2021linear}. It substantially improves recall on our
+repeat-copy probe, with controls attributing the gain to content addressing, while staying $O(N)$ in time and bitwise-exact under chunked low-memory inference.
 \item \textbf{An explicit collision, capacity and memory-footprint analysis}
 (\S\ref{sec:method-capacity}--\S\ref{sec:method-footprint}): what the delta rule does under
 repeated writes to one slot, a pigeonhole bound on collisions in a 131\,kbp window, the measured
@@ -189,8 +173,12 @@ S_t \;=\; \mathrm{diag}(\alpha_t)\,S_{t-1} \;+\; \beta_t\,\bigl(v_t - S_{t-1}k_t
 
 \paragraph{The recall bound.} Because $S_t$ has fixed size, the number of (key, value)
 associations recoverable exactly is bounded; past that, writes interfere. In language this
-surfaces on synthetic multi-query associative recall~\cite{arora2023zoology}; here we
-operationalize it as a repeat-copy probe on real hg38 background (\S\ref{sec:exp-recall}).
+surfaces on synthetic multi-query associative recall~\cite{arora2023zoology} and on string
+copying, where fixed-state models fall behind attention~\cite{jelassi2024repeat}; the
+repeated-token loss drop our probe measures is the signature of induction-style
+copying~\cite{olsson2022induction}. No established recall benchmark exists for genomic language
+models --- HyenaDNA, Caduceus and Nucleotide Transformer report none --- so we introduce one: a
+repeat-copy probe on real hg38 background (\S\ref{sec:exp-recall}).
 
 \section{Method}\label{sec:method}
 
@@ -309,12 +297,15 @@ overwrite behaviour applies along the overlapping directions.
 Equation~\ref{eq:fw-recur} is the recursive-least-squares/delta-rule update restricted to one
 address, so the general case interpolates: the slot performs gated least-squares regression of
 $v$ on $k$ over the writes it receives, retaining up to 16 well-separated key directions exactly
-and blending the rest as a gate-weighted EMA. This is what makes a 68.5\% collision rate
-survivable --- collisions on an 8-mer address are not collisions in the slot unless the hidden
-states also collide --- and it also predicts where the memory should fail: when one address
+and blending the rest as a gate-weighted EMA. Two kinds of collision must therefore be kept apart. An \emph{address collision} --- two
+positions sharing an 8-mer --- is what the 68.5\% counts. \emph{Representational interference}
+--- their learned keys $k_i$ being similar --- is what actually overwrites. Address collisions
+are survivable only to the extent the keys separate: the 16-direction capacity above is an upper
+bound, not a guarantee, since keys are learned projections of hidden states and nothing forces
+them to be orthogonal. The analysis also predicts where the memory should fail: when one address
 receives many writes with \emph{similar} keys and \emph{different} values, only the most recent
 $\approx 1/g$ survive. \S\ref{sec:exp-recall}'s decay from 0.82 to 0.62 nats between 4\,kbp and
-64\,kbp is consistent with exactly this in-slot interference, since address collision rates are
+64\,kbp is consistent with this in-slot interference, since address collision rates are
 distance-independent.
 
 \subsection{Memory footprint accounting}\label{sec:method-footprint}
@@ -358,8 +349,8 @@ training step inside 8\,GB; the 512\,MiB is what a streaming inference deploymen
 Mnemos-DNA-C adds two things to Mnemos-DNA at once, each motivated by a specific observed failure
 (\S\ref{sec:exp-snr}): a \emph{randomly initialized} Mnemos-DNA fine-tuned on Nucleotide
 Transformer splice sites beats the 4.5B-token 131\,K-context checkpoint (0.832 vs.\ 0.740 under
-the final matched protocol) --- pretraining at a fixed 131\,K length had tuned the recurrence's
-timescales \emph{away} from 300--600\,bp grammar. As \S\ref{sec:exp-snr} reports, the patch did
+the final matched protocol) --- which we hypothesised was fixed-131\,K pretraining tuning the recurrence's
+timescales \emph{away} from 300--600\,bp grammar (a hypothesis, not an established mechanism). As \S\ref{sec:exp-snr} reports, the patch did
 \emph{not} in the end repair that failure; we describe the design here because the arm exists
 and its other properties (recall, efficiency) are part of the matrix.
 
@@ -469,7 +460,9 @@ nats over the matched pure-KDA control across the sweep, and the local window an
 are loss-neutral on top of it: the three arms are at near-\emph{parity}. Whatever separates
 them elsewhere (\S\ref{sec:exp-recall}, \S\ref{sec:exp-snr}), it is not next-nucleotide
 modeling of megabase windows. This is the first of several places where perplexity carries no
-signal about the differences that matter downstream.
+signal about the differences that matter downstream. Because each architecture was pretrained
+once, we treat pretraining-loss differences of this size, below the scale of expected
+run-to-run variance, as descriptive rather than statistically established.
 
 \begin{figure}[!tbp]
 \centering
@@ -522,7 +515,7 @@ Table~\ref{tab:downstream-abs}). Three things:
 \item \textbf{The pretraining damage is real and survives the audit.} A randomly initialized
 Mnemos-DNA fine-tuned under the same head reaches $0.832\pm0.002$ on splice-sites-all and
 $0.897\pm0.005$ on splice donors, where the pretrained arms reach 0.71--0.79. On the
-position-sensitive splice tasks, 4.5B tokens of fixed-131\,K pretraining make the model
+position-sensitive splice tasks, the pretrained checkpoints (4.5B tokens at a fixed 131\,K) are
 \emph{worse} than no pretraining --- by $\sim$9 and $\sim$11 points respectively. On the
 remaining Nucleotide Transformer tasks the pretrained arms are at or slightly above the
 random-init control, so the damage is specific to sub-kilobase positional grammar, not a general
@@ -571,10 +564,8 @@ embedding, 5-way: human/mouse/zebrafish/fly/worm; shaded bands are 95\% bootstra
 marks the last length before OOM). All models saturate near 0.99 by 16\,K; the differentiator is
 how far each can go --- Mnemos-DNA reaches 1\,Mbp windows at 1.000 while the released external
 checkpoints stop at 256\,K (Caduceus-PS at 128\,K).
-\textbf{The length ceilings are a deployment-feasibility comparison of released out-of-the-box
-checkpoints on consumer hardware, and confound model size with architecture}; the external
-models are $\sim$3$\times$ our parameter count with far larger pretraining budgets and are run
-without a chunked path.}
+The length ceilings compare released checkpoint artifacts, not architectures
+(\S\ref{sec:exp-deploy}).}
 \label{fig:species}
 \end{figure}
 
@@ -725,34 +716,76 @@ The mechanistic result resolves cleanly (Figure~\ref{fig:needle}), and it now re
 matched control: D01 shares Mnemos-DNA's positional scheme (NoPE), training context, token
 budget and data order, and differs only by the $k$-mer memory. Pure KDA's copy advantage is
 $\approx$0.02 nats at distance 64 and zero beyond --- on genomic background it never performs
-measurable exact recall at \emph{any} distance, so the finite-state recall bound is not a distant
-cliff here but a wall at distance zero. The window-only arm D02, rerun in copy mode for this
+measurable exact recall at \emph{any} distance, so at this operating point the finite state is empirically
+insufficient to sustain exact recall over genomic background: not a distant cliff but a wall at
+distance zero. This is a statement about a $4\times32\times32$ state per layer, not about KDA at
+larger state dimensions. The window-only arm D02, rerun in copy mode for this
 figure, traces the pure-KDA curve point for point (0.016 at 64\,bp, zero beyond): windowed local
 attention, despite exact token-level access inside its 512\,bp span, does not by itself convert
 a repeated segment into a measurable copy advantage on hg38 background. The fast-weight memory
 (Mnemos-DNA) recovers 0.87 nats at short
 range and still holds 0.62 at 64\,kbp. Mnemos-DNA-C sits slightly below Mnemos-DNA at long distances (0.53 at
 64\,kbp) --- the curriculum's short-sequence steps plausibly de-emphasize ultra-long carry ---
-but the two memory arms are qualitatively identical. The memory, not the window, is what buys
-recall.
+but the two memory arms are qualitatively identical. The controlled ablation indicates that the
+memory, rather than the tested local window, is responsible for the observed recall improvement.
 
-\paragraph{The wall is a statement about this capacity, not about delta rules in general.} We
-emphasize that the distance-zero wall is measured at edge scale: with
-$d_{\text{model}}{=}128$ over 4 heads, each KDA head's state is a single $32\times32$ matrix ---
-1{,}024 floats asked to summarize up to 131{,}072 tokens of genomic background, a regime where
-sustained exact recall of an arbitrary planted segment is information-theoretically excluded long
-before any architectural subtlety matters. State capacity grows quadratically in head dimension,
-and larger delta-rule models on language do exhibit a graded recall-versus-distance profile
-rather than a wall~\cite{arora2023zoology,yang2025gated}. The claim this section licenses is
-therefore bounded: \emph{in the low-parameter edge regime, pure delta-rule recurrence cannot
-sustain measurable exact recall on genomic background at any distance, and an auxiliary
-decoupled memory --- here the $k$-mer fast-weight table --- is what restores it.} Whether a
-scaled-up pure KDA closes the gap without such a memory is untested here.
+\paragraph{Is it the memory's size, or its addressing? Three controls.} The comparison above
+leaves two cheaper explanations open. \emph{State size}: each D01 head's state is a single
+$32\times32$ matrix, and a larger pure-KDA state might recover recall without any table.
+\emph{Memory size}: the $k$-mer table adds $4^8\times16\times16\approx$16.8M floats of recurrent
+state per layer, and recall might come from that capacity regardless of how it is indexed. We
+trained three controls at the matched protocol (NoPE, 131\,K context, same data order, cosine
+schedule; Table~\ref{tab:controls}): pure KDA with 4$\times$ the per-layer state (one
+$128\times128$ head, parameter-matched to D01) and with 16$\times$ (one $256\times256$ head,
+$d_{\text{model}}{=}256$, the largest pure-KDA state whose training step fits the card at
+131\,K), and \textbf{D06-poshash}, Mnemos-DNA with its $4^8$-slot table unchanged but each
+position's slot chosen by a hash of its \emph{position} rather than of its last 8-mer --- same
+parameters, same state, same write/read rule, no content addressing. (Randomly permuting the
+$k$-mer$\to$slot map is not a control: it relabels slots and is equivalent to D06.)
 
-The 0.82\,$\to$\,0.62 nat decay between 4\,kbp and 64\,kbp must be interference \emph{inside}
-slot-level fast weights rather than address exhaustion, since address collision rates are
-distance-independent (\S\ref{sec:method-capacity}) --- Proposition~\ref{prop:ema}'s EMA horizon is
-the mechanism.
+\begin{table}[!tbp]
+\centering\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+& & State / layer & \multicolumn{4}{c}{Copy advantage (nats) at distance} & LM CE \\
+\cmidrule(lr){4-7}
+Arm & Params & (floats) & 64 & 1\,K & 16\,K & 64\,K & (nats/base) \\
+\midrule
+D01 (Pure-KDA, $4{\times}32^2$) & 2.25M & 4{,}096 & 0.016 & 0.001 & 0.000 & 0.000 & 1.074 \\
+Pure-KDA 4$\times$ state ($128^2$) & 2.25M & 16{,}384 & 0.017 & 0.001 & 0.000 & 0.000 & 1.076 \\
+Pure-KDA 16$\times$ state ($256^2$) & 8.96M & 65{,}536 & 0.017 & 0.002 & 0.000 & 0.000 & 1.051 \\
+D06-poshash (position-hashed slots) & 2.32M & 16.8M & 0.017 & 0.001 & 0.000 & 0.000 & 1.074 \\
+\midrule
+Mnemos-DNA (D06, 8-mer slots) & 2.32M & 16.8M & \best{0.866} & \best{0.868} & \best{0.711} & \best{0.616} & 1.065 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Recall comes from content addressing, not from state or memory size.} Repeat-copy
+probe of Figure~\ref{fig:needle} (context 131{,}072, 128 trials/point) and held-out LM
+cross-entropy at 131\,K (4\,M tokens), all re-measured in one run of the harness. 95\% bootstrap
+intervals: every control's copy advantage is $\le$0.022 at 64\,bp and contains zero from 16\,kbp
+on; Mnemos-DNA's lower bound is $\ge$0.56 at every distance. LM CE intervals are $\approx\pm$0.03
+(31 windows), so the 0.009-nat D06 advantage over D01 is within them. State per layer for the
+table arms counts the KDA state plus the fast-weight table. All arms trained on 4.5B tokens.}
+\label{tab:controls}
+\end{table}
+
+Neither explanation survives. Quadrupling the state leaves the curve unchanged to three decimals,
+and sixteen-fold --- with 4$\times$ the parameters, which buys a 0.023-nat LM improvement --- moves
+the 1\,kbp point from 0.001 to 0.002 nats. D06-poshash holds exactly Mnemos-DNA's 16.8M-float
+table and traces D01 point for point; its 1--3-substitution sweeps are likewise flat at zero, and
+its LM loss (1.0739) equals D01's (1.0738) to the fourth decimal, so a table the model cannot
+address by content is simply ignored. The recall in Figure~\ref{fig:needle} is therefore bought
+by \emph{what the slot is keyed on}: two occurrences of the same 8-mer land in the same slot
+however far apart they are, which no position-indexed state, of any size we could train, provides.
+The claim stays bounded to what was measured --- a 16$\times$ state at $\sim$9M parameters is still
+edge scale, and larger delta-rule models on language do show graded recall profiles rather than a
+wall~\cite{arora2023zoology,yang2025gated} --- but within the range an 8\,GB card can train, growing
+the pure-KDA state is not a substitute for the content-addressed memory.
+
+The 0.82\,$\to$\,0.62 nat decay between 4\,kbp and 64\,kbp is more consistent with interference
+\emph{inside} slot-level fast weights than with address exhaustion, since address collision rates
+are distance-independent (\S\ref{sec:method-capacity}); Proposition~\ref{prop:ema}'s EMA horizon is
+the likely mechanism, though we have not isolated it directly.
 
 \paragraph{Degenerate motifs: the copy advantage survives point substitutions.} Because the
 memory keys on \emph{exact} 8-mers, the natural objection is that biological motifs are
@@ -768,7 +801,8 @@ or collapse anywhere in the sweep --- and the curve shapes are unchanged, so the
 distance and the decay with divergence are independent. This is what the mechanism predicts: a
 substitution invalidates only the $k{=}8$ addresses overlapping it ($\le 8$ of 249 addressed
 positions per mutation), and at $m{=}3$ the remaining $\ge$90\% of the segment's 8-mers still hit
-their slots. Exactness is required per \emph{address}, not per \emph{segment}.
+their slots. Exactness is required per \emph{address}, not per \emph{segment}. We claim this only for the
+tested low-divergence regime (up to 3 substitutions in 256\,bp).
 
 \begin{figure}[!tbp]
 \centering
@@ -777,8 +811,7 @@ their slots. Exactness is required per \emph{address}, not per \emph{segment}.
 95\% bootstrap bands). The repeat-copy probe of Figure~\ref{fig:needle} re-run with 0--3 random
 point substitutions planted in the repeated 256\,bp segment, for Mnemos-DNA (left) and
 Mnemos-DNA-C (right). Each substitution costs $\approx$0.03--0.05 nats roughly uniformly across
-distances; the curves' shapes are unchanged, so the $k$-mer memory's recall is robust to
-SNP-level divergence between repeat copies --- a substitution invalidates at most 8 of the
+distances; the curves' shapes are unchanged, so the $k$-mer memory retains recall under the tested 1--3 substitutions between repeat copies --- a substitution invalidates at most 8 of the
 segment's 249 8-mer addresses. All curves, $m{=}0$ through $m{=}3$, are measured on the
 main-suite checkpoints (step 34{,}177 for Mnemos-DNA, 33{,}900 for Mnemos-DNA-C).}
 \label{fig:needlemut}
@@ -859,7 +892,14 @@ allocating depth to long-range statistics at the expense of local grammar, which
 damage the random-init control exposes (\S\ref{sec:exp-snr}).
 
 \FloatBarrier
-\subsection{Deployment feasibility: memory and throughput}\label{sec:exp-deploy}
+\subsection{Deployment feasibility of released checkpoints}\label{sec:exp-deploy}
+
+\emph{This experiment evaluates the deployability of released checkpoint artifacts under an 8\,GB
+constraint; it is not a parameter-matched algorithmic comparison.} The external checkpoints are
+$\sim$3$\times$ our parameters (HyenaDNA-1M 6.5M, Caduceus-PH/PS 7.7M), were pretrained with far
+larger budgets, and are run as shipped without a chunked path, so every gap below confounds model
+size, implementation and architecture. Every other mention of the baselines in this paper refers
+back to this framing.
 
 \begin{figure}[!tbp]
 \centering
@@ -868,12 +908,7 @@ damage the random-init control exposes (\S\ref{sec:exp-snr}).
 Mnemos-DNA(-C) inference is linear and reaches 1\,Mbp at 5.6\,GB; a full training step fits
 through 256\,K. The released baselines' own batch-1 curves are shown directly: HyenaDNA-1M
 reaches 256\,K (5.0\,GB) and goes out of memory at 512\,K; Caduceus-PS reaches 512\,K (7.6\,GB)
-and goes out of memory at 1\,M. \textbf{This is a deployment-feasibility
-comparison of released out-of-the-box checkpoints on consumer hardware}: the baselines
-($\sim$3$\times$ our parameter count) run as shipped, without a
-chunked path, while our 2.3M-parameter arms use a custom chunk-exact offload above 512\,K. It
-measures what an 8\,GB deployment of these artifacts can open --- not an intrinsic sub-quadratic
-advantage of KDA over Hyena or Mamba, which this experiment cannot establish.}
+and goes out of memory at 1\,M. Baselines run as shipped; our arms use a chunk-exact offload above 512\,K (framing: \S\ref{sec:exp-deploy}).}
 \label{fig:scaling}
 \end{figure}
 
@@ -904,12 +939,8 @@ overstatement of the gap. All ceilings reported in this paper come from single-s
 inference, the deployment-relevant measurement, under which our arms open windows
 2--4$\times$ longer than the released baselines on this card.
 
-Two honest qualifications remain. First, the comparison is between artifacts, not algorithms:
-those checkpoints are $\sim$3$\times$ our parameters (HyenaDNA-1M 6.5M, Caduceus-PH/PS 7.7M),
-are run as shipped without chunking, and were never intended for
-an 8\,GB card, so the gap confounds model size, implementation and architecture. A
-parameter-matched, chunking-matched comparison is a different experiment and we have not run it.
-Second, the $k$-mer table makes our arms \emph{less} memory-light than pure KDA (D01 runs a
+A parameter-matched, chunking-matched comparison is a different experiment and we have not run
+it. One further qualification: the $k$-mer table makes our arms \emph{less} memory-light than pure KDA (D01 runs a
 1\,Mbp forward in 5.5\,GB natively and needs no offload anywhere in the sweep; Mnemos-DNA(-C)
 need the chunk-exact offload path above 512\,K), which
 is the space cost of Table~\ref{tab:footprint} showing up in practice.
@@ -957,13 +988,9 @@ of the segment's 8-mers rather than a few percent of them.
 tasks are simply out of reach, and we report them as capacity ceilings rather than as architecture
 comparisons.
 
-\paragraph{Baseline comparisons are about artifacts.} The HyenaDNA/Caduceus columns share our
-harness but not our model size ($\sim$3$\times$ ours), pretraining budget, or inference path.
-Where they match or
-beat us the reading is unremarkable; where we match them at 2.3M parameters the reading is
-parameter efficiency; and their OOM ceilings describe 8\,GB deployment of those released
-checkpoints, not the methods at their native scale --- measured at batch 1, after we corrected
-an earlier probe-batch confound that had overstated the gap 8-fold (\S\ref{sec:exp-deploy}).
+\paragraph{Baseline comparisons are about artifacts} (\S\ref{sec:exp-deploy}). Where the
+released checkpoints match or beat us the reading is unremarkable; where we match them at 2.3M
+parameters the reading is parameter efficiency, nothing more.
 
 \paragraph{What we would test next.} An intervention that actually closes the splice-site gap to
 random init --- the window-plus-curriculum patch did not, so the candidates are shorter or mixed
@@ -978,9 +1005,10 @@ the 512\,MiB inference state; and a variable $k$ (or a learned address function)
 Gated delta-rule linear attention is a workable base operator for character-level genomic modeling
 at edge scale --- but not alone. At this operating point's state capacity, pure KDA's
 finite-state recall bound is not a distant cliff on DNA; it is a wall at distance zero, and a
-windowed local-attention layer does not move it. A
-content-addressed $k$-mer fast-weight memory removes most of that wall --- robustly to SNP-level
-divergence in the repeated material --- for $\sim$3\% extra parameters, a $\approx$2$\times$
+windowed local-attention layer does not move it; neither does a 16$\times$ larger KDA state, nor a
+table of the same size indexed by position rather than content. A
+content-addressed $k$-mer fast-weight memory substantially improves recall on our probe ---
+retaining it under the tested 1--3 substitutions in the repeated material --- for $\sim$3\% extra parameters, a $\approx$2$\times$
 prefill-throughput constant, and a 4096$\times$ larger recurrent state, while preserving $O(N)$
 scaling and megabase-length exact chunked inference on an 8\,GB GPU; all three costs are
 accounted for rather than omitted. Its address space is used
@@ -1045,8 +1073,9 @@ H\ref{hyp:eff} deployment efficiency & KDA arms exceed released baselines' max c
 confound; confounds model size ($\sim$3$\times$) \\
 H\ref{hyp:recall} recall bound & Pure KDA degrades past a distance threshold; memory arms hold
 longer; a local window adds recall only inside its span & Supported, stronger than predicted &
-Matched pure KDA (D01) has \emph{no} recall at any distance and the window-only arm (D02) is
-identical to it; memory arms hold to 64\,kbp (Fig.~\ref{fig:needle}), robustly to 1--3
+Matched pure KDA (D01) has \emph{no} recall at any distance, nor do 4$\times$/16$\times$-state
+pure KDA or a position-hashed table of Mnemos-DNA's size (Table~\ref{tab:controls}); the
+window-only arm (D02) is identical to D01; memory arms hold to 64\,kbp (Fig.~\ref{fig:needle}) and under the tested 1--3
 substitutions (Fig.~\ref{fig:needlemut}) \\
 H\ref{hyp:ppl} LM loss & No direction stated & Parity & All arms within 0.01 nats; flat
 8\,K--1\,M (Figs.~\ref{fig:curves},~\ref{fig:lmctx}) \\

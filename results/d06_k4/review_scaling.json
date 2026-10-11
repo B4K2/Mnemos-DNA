@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "model_id": "d06_k4",
+    "run_name": "d06-k4",
+    "checkpoint": "results/d06_k4/final.pt",
+    "checkpoint_step": 34332,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 131072,
+    "lengths": [
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144,
+      524288,
+      1048576
+    ],
+    "benchmarks": [
+      "scaling"
+    ],
+    "downstream_mode": "probe",
+    "lm_eval_tokens": 4000000,
+    "needle_trials": 128,
+    "seed": 0,
+    "offload": false,
+    "wall_time_s": 44.2,
+    "interrupted": false,
+    "total_params": 2318544,
+    "non_embedding_params": 2317520,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 8192,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.057,
+        "prefill_tok_per_s": 321008,
+        "prefill_s": 0.0255,
+        "decode_peak_gb": 0.058,
+        "decode_s_per_tok_nocache": 0.0254,
+        "train_peak_gb": 0.154,
+        "train_tok_per_s": 31089
+      },
+      "note": "",
+      "seconds": 5.432222843170166,
+      "peak_mem_gb": 0.024068096
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 16384,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.11,
+        "prefill_tok_per_s": 407808,
+        "prefill_s": 0.0402,
+        "decode_peak_gb": 0.11,
+        "decode_s_per_tok_nocache": 0.0438,
+        "train_peak_gb": 0.283,
+        "train_tok_per_s": 94658
+      },
+      "note": "",
+      "seconds": 1.213275671005249,
+      "peak_mem_gb": 0.02433024
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 32768,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.197,
+        "prefill_tok_per_s": 432492,
+        "prefill_s": 0.0758,
+        "decode_peak_gb": 0.197,
+        "decode_s_per_tok_nocache": 0.0688,
+        "train_peak_gb": 0.543,
+        "train_tok_per_s": 102105
+      },
+      "note": "",
+      "seconds": 1.5642080307006836,
+      "peak_mem_gb": 0.024854528
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 65536,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.37,
+        "prefill_tok_per_s": 428611,
+        "prefill_s": 0.1529,
+        "decode_peak_gb": 0.37,
+        "decode_s_per_tok_nocache": 0.1532,
+        "train_peak_gb": 1.061,
+        "train_tok_per_s": 97826
+      },
+      "note": "",
+      "seconds": 1.9524571895599365,
+      "peak_mem_gb": 0.025903104
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 0.716,
+        "prefill_tok_per_s": 422680,
+        "prefill_s": 0.3101,
+        "decode_peak_gb": 0.718,
+        "decode_s_per_tok_nocache": 0.3174,
+        "train_peak_gb": 2.099,
+        "train_tok_per_s": 88148
+      },
+      "note": "",
+      "seconds": 3.2798807621002197,
+      "peak_mem_gb": 0.028000256
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 262144,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 1.408,
+        "prefill_tok_per_s": 321005,
+        "prefill_s": 0.8166,
+        "decode_peak_gb": 1.41,
+        "decode_s_per_tok_nocache": 0.6718,
+        "train_peak_gb": 4.172,
+        "train_tok_per_s": 80063
+      },
+      "note": "",
+      "seconds": 6.299713373184204,
+      "peak_mem_gb": 0.032195072
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 524288,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 2.792,
+        "prefill_tok_per_s": 311000,
+        "prefill_s": 1.6858,
+        "decode_peak_gb": 2.796,
+        "decode_s_per_tok_nocache": 1.5253,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "train step OOM (inference figures above are still valid)",
+      "seconds": 7.374260425567627,
+      "peak_mem_gb": 0.040583168
+    },
+    {
+      "benchmark": "scaling",
+      "task": "scaling",
+      "ctx": 1048576,
+      "status": "ok",
+      "metrics": {
+        "infer_peak_gb": 5.56,
+        "prefill_tok_per_s": 317817,
+        "prefill_s": 3.2993,
+        "decode_peak_gb": 5.569,
+        "decode_s_per_tok_nocache": 3.348,
+        "train_peak_gb": null,
+        "train_tok_per_s": null
+      },
+      "note": "train step OOM (inference figures above are still valid)",
+      "seconds": 14.051768064498901,
+      "peak_mem_gb": 0.057360384
+    }
+  ]
+}

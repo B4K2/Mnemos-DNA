@@ -1,0 +1,9 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,ce_control,ce_repeat,copy_advantage,copy_advantage_hi,copy_advantage_lo,copy_advantage_mean,distance_bp,mode,mut_identity,n_boot,n_mutations,seg_len,stderr,trials
+needle,d=64 m=3,131072,ok,,84.52,1.4057,1.124,0.9916,0.1324,0.1477,0.1177,0.1328,64,copy,0.9883,1000,3,256,0.0078,128
+needle,d=256 m=3,131072,ok,,84.52,1.4057,1.125,1.0476,0.0774,0.0922,0.0637,0.0772,256,copy,0.9883,1000,3,256,0.0072,128
+needle,d=1024 m=3,131072,ok,,84.52,1.4057,1.1406,1.125,0.0155,0.0214,0.0111,0.0155,1024,copy,0.9883,1000,3,256,0.0026,128
+needle,d=4096 m=3,131072,ok,,84.52,1.4057,1.1375,1.1351,0.0024,0.003,0.0019,0.0024,4096,copy,0.9883,1000,3,256,0.0003,128
+needle,d=16384 m=3,131072,ok,,84.52,1.4057,1.0954,1.0946,0.0008,0.0014,0.0004,0.0008,16384,copy,0.9883,1000,3,256,0.0003,128
+needle,d=65536 m=3,131072,ok,,84.52,1.4057,1.1153,1.1151,0.0002,0.0004,0.0,0.0002,65536,copy,0.9883,1000,3,256,0.0001,128
+needle,d=262144,131072,SKIP: data unavailable,distance 262144 does not fit ctx=131072 with seg=256,84.52,1.4057,,,,,,,,,,,,,,
+needle,d=1048576,131072,SKIP: data unavailable,distance 1048576 does not fit ctx=131072 with seg=256,84.52,1.4057,,,,,,,,,,,,,,

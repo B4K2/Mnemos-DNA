@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "model_id": "d06_k4",
+    "run_name": "d06-k4",
+    "checkpoint": "results/d06_k4/final.pt",
+    "checkpoint_step": 34332,
+    "device": "cuda",
+    "dtype": "torch.bfloat16",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "trained_context_length": 131072,
+    "lengths": [
+      131072
+    ],
+    "benchmarks": [
+      "lm"
+    ],
+    "downstream_mode": "probe",
+    "lm_eval_tokens": 4000000,
+    "needle_trials": 128,
+    "seed": 0,
+    "offload": false,
+    "wall_time_s": 20.2,
+    "interrupted": false,
+    "total_params": 2318544,
+    "non_embedding_params": 2317520,
+    "vocab_size": 8
+  },
+  "rows": [
+    {
+      "benchmark": "lm",
+      "task": "lm",
+      "ctx": 131072,
+      "status": "ok",
+      "metrics": {
+        "ce": 1.0703,
+        "ppl": 2.916,
+        "bpn": 1.5441,
+        "acc": 0.5088,
+        "eval_tokens": 4063232,
+        "eval_windows": 31,
+        "n_boot": 1000,
+        "ce_mean": 1.0698,
+        "ce_lo": 1.0403,
+        "ce_hi": 1.0977,
+        "ppl_mean": 2.915,
+        "ppl_lo": 2.83,
+        "ppl_hi": 2.997,
+        "acc_mean": 0.5091,
+        "acc_lo": 0.4932,
+        "acc_hi": 0.5269
+      },
+      "note": "",
+      "seconds": 19.868197679519653,
+      "peak_mem_gb": 0.712589312
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,acc,acc_hi,acc_lo,acc_mean,bpn,ce,ce_hi,ce_lo,ce_mean,eval_tokens,eval_windows,n_boot,ppl,ppl_hi,ppl_lo,ppl_mean
+lm,lm,131072,ok,,19.53,0.7126,0.5096,0.5276,0.4937,0.5099,1.5429,1.0694,1.0973,1.0391,1.069,4063232,31,1000,2.914,2.996,2.827,2.912

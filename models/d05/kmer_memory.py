@@ -105,6 +105,37 @@ def kmer_addresses(idx: torch.Tensor, k: int) -> torch.Tensor:
     return addr
 
 
+ADDRESS_MODES = ("kmer", "position_hash", "shared")
+
+
+def remap_addresses(addr: torch.Tensor, mode: str, n_addr: int) -> torch.Tensor:
+    """Addressing controls for the review ablation. Every mode keeps the -1 (no-op) positions of
+    the k-mer address, so the event count, gates and scan cost are identical to `kmer`:
+      kmer          : the k-mer's own address (the arm under test)
+      position_hash : a fixed hash of the absolute position -> same table size, but a later
+                      occurrence of the same k-mer can no longer find what was written
+      shared        : every event hits slot 0 -> one fast-weight matrix, no addressing at all
+    A random *permutation* of k-mer addresses is deliberately not a mode: it is a relabelling
+    of the slots and is indistinguishable from `kmer`."""
+    if mode == "kmer":
+        return addr
+    valid = addr >= 0
+    if mode == "position_hash":
+        t = torch.arange(addr.shape[1], device=addr.device, dtype=torch.long)
+        # 32-bit integer mixer, not a linear map: t*c mod 4^k is periodic in t and would give an
+        # exact position echo at distance 4^k -- i.e. fake recall at that needle distance.
+        m = 0xFFFFFFFF
+        h = t ^ (t >> 16)
+        h = (h * 0x45D9F3B) & m
+        h = h ^ (h >> 16)
+        h = (h * 0x45D9F3B) & m
+        h = (h ^ (h >> 16)) % n_addr
+        return torch.where(valid, h.expand_as(addr), addr)
+    if mode == "shared":
+        return torch.where(valid, torch.zeros_like(addr), addr)
+    raise ValueError(f"kmer_mem_address_mode must be one of {ADDRESS_MODES}, got {mode!r}")
+
+
 def shift_write_addresses(addr: torch.Tensor) -> torch.Tensor:
     """Write address for position t = read address of position t-1 (-1 at t=0). Apply to the
     full-sequence address tensor *before* chunking so chunk boundaries stay consistent."""

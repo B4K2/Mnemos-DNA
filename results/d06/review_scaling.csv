@@ -1,0 +1,9 @@
+benchmark,task,ctx,status,note,seconds,peak_mem_gb,decode_peak_gb,decode_s_per_tok_nocache,infer_peak_gb,prefill_s,prefill_tok_per_s,train_peak_gb,train_tok_per_s
+scaling,scaling,8192,ok,,5.4,0.0241,0.155,0.0266,0.158,0.0281,291698,0.236,27223
+scaling,scaling,16384,ok,,1.32,0.0243,0.224,0.0527,0.236,0.0529,309466,0.372,75336
+scaling,scaling,32768,ok,,1.84,0.0249,0.348,0.0944,0.356,0.1031,317893,0.63,75364
+scaling,scaling,65536,ok,,2.45,0.0259,0.606,0.2106,0.591,0.2142,305981,1.131,64926
+scaling,scaling,131072,ok,,4.3,0.028,1.049,0.4192,1.054,0.5659,231611,2.166,62775
+scaling,scaling,262144,ok,,8.01,0.0322,1.797,0.9786,1.786,0.9857,265942,4.239,62784
+scaling,scaling,524288,ok,train step OOM (inference figures above are still valid),8.66,0.0406,2.871,1.8381,2.852,1.8918,277141,,
+scaling,scaling,1048576,ok,train step OOM (inference figures above are still valid),14.83,0.0574,5.569,3.5609,5.56,3.5105,298693,,

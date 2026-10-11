@@ -54,11 +54,11 @@ class FastWeightKmerMemory(nn.Module):
     router_stats, k, scan_chunk)."""
 
     def __init__(self, k: int, d_in: int, d_k: int, d_v: int, gate_init: float, scan_chunk: int,
-                 write_gate_init: float | None = None):
+                 write_gate_init: float | None = None, n_slots: int | None = None):
         super().__init__()
         self.k, self.d_k, self.d_v, self.scan_chunk = k, d_k, d_v, scan_chunk
         self.n_addr = 4 ** k
-        self.n_slots = self.n_addr
+        self.n_slots = self.n_addr if n_slots is None else int(n_slots)   # 1 for address_mode shared
         self.q_proj = nn.Linear(d_in, d_k, bias=False)
         self.k_proj = nn.Linear(d_in, d_k, bias=False)
         self.v_proj = nn.Linear(d_in, d_v, bias=False)
