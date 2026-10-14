@@ -32,3 +32,4 @@ paper/figures/*.pdf
 nohup.out
 
 CLAUDE.md
+checkpoints/
